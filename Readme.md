@@ -133,3 +133,7 @@ The system should be easy to maintain and update, with proper documentation .
 </li>
 
 </ol>
+
+<h1>High level diagram of working flow</h1>
+
+![High Level Diagram drawio](https://user-images.githubusercontent.com/60172576/220530093-7ee747bd-2085-4337-817d-3cf1cbdbac07.png)
