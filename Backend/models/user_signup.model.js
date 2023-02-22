@@ -1,11 +1,14 @@
 const mongoose = require("mongoose")
 
 const userSchema  =  mongoose.Schema({
-    name:String,
-    email:String,
-    mobile:Number,
-    password:String
-
+    avatar:{type:String,required:false,default:"https://cdn-icons-png.flaticon.com/512/1077/1077012.png"},
+    name:{type:String,required:true},
+    email:{type:String,required:true},
+    mobile:{type:Number,required:true},
+    password:{type:Number,required:true},
+    gender:{type:String,required:false},
+    isAdmin:{type:Boolean, default:false},
+    isActive:{type:Boolean, default:false}    
 })
 
 const UserModel =  mongoose.model("user",userSchema)
