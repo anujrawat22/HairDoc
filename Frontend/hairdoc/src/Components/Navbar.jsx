@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
-import Login_Signup_Modal from "../pages/Signup_login"
+import Login_Signup_Modal from "../pages/Signup"
 
 const Links = ['Home', 'Women', 'Men','Blogs'];
 
@@ -58,6 +58,14 @@ export default function Navbar() {
               mr={4}
              onClick={() => navigate("/signup")}>
               SignUp
+            </Button>
+            <Button
+              variant={'solid'}
+              color={"black"}
+              size={'sm'}
+              mr={4}
+             onClick={() => navigate("/login")}>
+              Login
             </Button>
             <Menu>
               <MenuButton
