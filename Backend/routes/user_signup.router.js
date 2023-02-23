@@ -16,14 +16,15 @@ const UserRouter = express.Router()
 const {UserModel}=require('../models/user_signup.model')
 //signup
 UserRouter.post('/signup', async (req, res) => {
-    const { email, password, mobile, name } = req.body;
+    const { email, password, mobile, name ,avatar,gender,isAdmin,isActive
+    } = req.body;
     bcrypt.hash(password, 6, async function (err, hash) {
         if (err) {
             res.status(500).send({ 'msg': "Something went wrong" })
         }
         else {
             try {
-                let user = new UserModel({ email, password: hash, name, mobile });
+                let user = new UserModel({ email, password: hash, name, mobile,avatar,gender,isActive,isAdmin });
                 await user.save();
                 let otp = Math.ceil(Math.random() * 10000);
                 console.log(otp)
@@ -80,7 +81,7 @@ UserRouter.post('/verify', async (req, res) => {
                 console.log(success)
                 const { email } = req.body;
                 let data = await UserModel.findOne({ email });
-                const token = jwt.sign({ userid: data._id, name: data.name }, process.env.password, { expiresIn: '5 days' })
+                const token = jwt.sign({ userid: data._id, email:data.email,isAdmin:data.isAdmin }, process.env.password, { expiresIn: '5 days' })
                 redis.set('token', token)
                await redis.getdel('otp')
                 res.status(201).send({ "msg": "Account Created Successfully", "token": token, "name": data.name })
@@ -110,8 +111,8 @@ UserRouter.post('/login', async (req, res) => {
                     res.status(500).send({ 'msg': "Something went wrong" })
                 }
                 else if (result) {
-                    //is admin
-                const token = jwt.sign({ userid: user._id, name: user.name }, process.env.password, { expiresIn: '5 days' })
+                   //token name
+                const token = jwt.sign({ userid: user._id,  email:data.email,isAdmin:data.isAdmin }, process.env.password, { expiresIn: '5 days' })
                     res.status(201).send({"msg":"Login succesfull","token":token,"name":user.name})
                 }
                 else {
