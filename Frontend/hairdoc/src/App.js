@@ -8,7 +8,7 @@ import CaptionCarousel from './Components/Carousal';
 function App() {
   return (
     <div className="App">
-       <Navbar/>
+       <AllRoutes/>
     </div>
 
   );
