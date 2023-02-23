@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 require('dotenv').config()
 
 
@@ -13,7 +14,8 @@ const redis = new Redis({
 })
 
 const UserRouter = express.Router()
-const {UserModel}=require('../models/user_signup.model')
+const {UserModel}=require('../models/user_signup.model');
+const { json } = require('express');
 //signup
 UserRouter.post('/signup', async (req, res) => {
     const { email, password, mobile, name ,avatar,gender,isAdmin,isActive
@@ -24,8 +26,10 @@ UserRouter.post('/signup', async (req, res) => {
         }
         else {
             try {
-                let user = new UserModel({ email, password: hash, name, mobile,avatar,gender,isActive,isAdmin });
-                await user.save();
+                // let user = new UserModel();
+                const user={ email, password: hash, name, mobile,avatar,gender,isActive,isAdmin }
+                let data = JSON.stringify(user)
+                redis.set('user',data)
                 let otp = Math.ceil(Math.random() * 10000);
                 console.log(otp)
                 const transporter = nodemailer.createTransport({
@@ -55,7 +59,7 @@ UserRouter.post('/signup', async (req, res) => {
                     } else {
                         console.log('Email Sent Successfully');
                         redis.set('otp', otp)
-                        res.status(201).send({ "msg": `Otp Sent Successfully`, "email": email })
+                        res.status(201).send({ "msg": `Otp Sent Successfully`, "email": email ,"user":user})
 
                     }
                 })
@@ -78,11 +82,17 @@ UserRouter.post('/verify', async (req, res) => {
                 return res.status(500).send({ "msg": 'Something went wrong' })
             }
             else if(otp==success) {
-                console.log(success)
-                const { email } = req.body;
+                const datas=await redis.get('user')
+                const result = JSON.parse(datas)
+                const user = new UserModel(result)
+                await user.save()
+                let email =  result.email
+                console.log(email)
                 let data = await UserModel.findOne({ email });
+                console.log(data, req.body);
                 const token = jwt.sign({ userid: data._id, email:data.email,isAdmin:data.isAdmin }, process.env.password, { expiresIn: '5 days' })
                 redis.set('token', token)
+               await redis.getdel('user')
                await redis.getdel('otp')
                 res.status(201).send({ "msg": "Account Created Successfully", "token": token, "name": data.name })
             }else{
