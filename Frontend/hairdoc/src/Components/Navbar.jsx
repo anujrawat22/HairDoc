@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import {  Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -18,15 +19,18 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
+import Login_Signup_Modal from "../pages/Signup_login"
+
 const Links = ['Home', 'Women', 'Men','Blogs'];
 
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box bg={useColorModeValue('#ebd3e1', '#ebd3e1')} px={4} >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'lg'}
@@ -49,10 +53,10 @@ export default function Navbar() {
           <Flex alignItems={'center'}>
             <Button
               variant={'solid'}
-              colorScheme={'teal'}
+              color={"black"}
               size={'sm'}
               mr={4}
-              leftIcon={<AddIcon />}>
+             onClick={() => navigate("/signup")}>
               SignUp
             </Button>
             <Menu>
