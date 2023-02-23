@@ -3,14 +3,19 @@ const express = require('express');
 const cors = require('cors')
 const jwt=require('jsonwebtoken')
 require('dotenv').config()
+var cookieParser = require('cookie-parser')
 
 const app = express();
 const {passport}=require('./config/google-oauth')
+
+const {authenticate} = require("./middlewares/authentication")
 
 app.use(express.json())
 app.use(cors({
     origin: '*'
 }))
+
+app.use(cookieParser())
 
 const { connection } = require('./config/db.js')
 
@@ -26,6 +31,7 @@ app.get('/',(req,res)=>{
 })
 
 
+
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile','email'] }));
 
@@ -38,6 +44,7 @@ app.get('/auth/google/callback',
     res.status(201).send({'msg':'Login succesfull','token':token})
     // res.redirect('/');
   });
+
 
 
 
