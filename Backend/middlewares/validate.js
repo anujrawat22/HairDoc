@@ -10,7 +10,10 @@ const validate=async(req,res,next)=>{
     res.status(401).send({'msg':"Please fill all details"})
   }else if(mobile.length!=10){
     res.status(401).send({'msg':"Please provide correct mobile number"})
-  }else{
+  } else if(password.length<8){
+    res.status(401).send({'msg':'Please choose strong password'})
+  }
+  else{
        let data=await UserModel.findOne({email});
        if(data) return res.status(409).send({'msg':"User already exists"});
        next()
