@@ -50,13 +50,14 @@ export default function SignupCard() {
       password: signupPassword.current.value,
       mobile: signupMobile.current.value
     };
+    console.log(obj)
     if (
       obj.name == "" ||
       obj.email == "" ||
       obj.password == "" ||
       obj.mobile == ""
     ) {
-      alert("");
+      alert("Please fill all the details");
       return;
     }
     try {

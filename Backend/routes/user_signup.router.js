@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 require('dotenv').config()
+var cookieParser = require('cookie-parser')
+
+const {authenticate} = require('../middlewares/authentication')
 
 
 const Redis = require('ioredis');
@@ -16,6 +19,8 @@ const redis = new Redis({
 const UserRouter = express.Router()
 const {UserModel}=require('../models/user_signup.model');
 const { json } = require('express');
+UserRouter.use(cookieParser())
+
 //signup
 UserRouter.post('/signup', async (req, res) => {
     const { email, password, mobile, name ,avatar,gender,isAdmin,isActive
@@ -121,9 +126,12 @@ UserRouter.post('/login', async (req, res) => {
                     res.status(500).send({ 'msg': "Something went wrong" })
                 }
                 else if (result) {
-                   //token name
-                const token = jwt.sign({ userid: user._id,  email:data.email,isAdmin:data.isAdmin }, process.env.password, { expiresIn: '5 days' })
-                    res.status(201).send({"msg":"Login succesfull","token":token,"name":user.name})
+                    const token = jwt.sign({ userid: user._id,  email:user.email,isAdmin:user.isAdmin }, process.env.password, { expiresIn: '5d' })
+
+                    res.cookie("token",token,{httpOnly:true})
+                    res.setHeader("token",token)
+
+                    res.status(201).send({"msg":"Login successfull","token":token,"name":user.name})
                 }
                 else {
                     res.send({ 'msg': "incorrect password" })
@@ -139,6 +147,7 @@ UserRouter.post('/login', async (req, res) => {
         res.status(401).send({ "msg": "Invailid credentials" })
     }
 })
+
 
 
 module.exports = { UserRouter, redis }
