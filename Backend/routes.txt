@@ -1,0 +1,3 @@
+signup=> http://localhost:8080/signup
+verify otp => http://localhost:8080/verify
+login => http://localhost:8080/login

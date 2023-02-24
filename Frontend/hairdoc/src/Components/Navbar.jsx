@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -14,59 +15,77 @@ import {
   MenuDivider,
   useDisclosure,
   useColorModeValue,
-  Stack,
-} from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+  Stack
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
-const Links = ['Home', 'Women', 'Men','Blogs'];
+import Login_Signup_Modal from "../pages/Signup";
+import { AuthContext } from "../contex/auth";
 
+const Links = ["Home", "Women", "Men", "Blogs"];
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
+  const { isauth } = useContext(AuthContext);
+  console.log("isAuth from navbar", isauth)
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+      <Box bg={useColorModeValue("#ebd3e1", "#ebd3e1")} px={4}>
+        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
-            size={'lg'}
+            size={"lg"}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={'Open Menu'}
-            display={{ lg: 'none' }}
+            aria-label={"Open Menu"}
+            display={{ lg: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'}>
-            <Box><img src="" alt="" /></Box>
+          <HStack spacing={8} alignItems={"center"}>
+            <Box>
+              <img src="" alt="" />
+            </Box>
             <HStack
-              as={'nav'}
+              as={"nav"}
               spacing={4}
-              display={{ base: 'none', md: 'none',lg:'block' }}>
+              display={{ base: "none", md: "none", lg: "block" }}
+            >
               {Links.map((link) => (
                 <Link key={link}>{link}</Link>
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'}>
+          <Flex alignItems={"center"}>
             <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
+              variant={"solid"}
+              color={"black"}
+              size={"sm"}
               mr={4}
-              leftIcon={<AddIcon />}>
+              onClick={() => navigate("/signup")}
+            >
               SignUp
+            </Button>
+            <Button
+              variant={"solid"}
+              color={"black"}
+              size={"sm"}
+              mr={4}
+              onClick={() => navigate("/login")}
+            >
+              Login
             </Button>
             <Menu>
               <MenuButton
                 as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}>
+                rounded={"full"}
+                variant={"link"}
+                cursor={"pointer"}
+                minW={0}
+              >
                 <Avatar
-                  size={'sm'}
-                  src={
-                    'https://avatars.githubusercontent.com/u/51295793?v=4'
-                  }
+                  size={"sm"}
+                  src={"https://avatars.githubusercontent.com/u/51295793?v=4"}
                 />
               </MenuButton>
               <MenuList>
@@ -80,8 +99,8 @@ export default function Navbar() {
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+          <Box pb={4} display={{ md: "block" }}>
+            <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
                 <Link key={link}>{link}</Link>
               ))}
