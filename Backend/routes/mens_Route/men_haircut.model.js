@@ -22,12 +22,22 @@ menHairCutrouter.get("/",async (req,res)=>{
 
 
 
-// data for paticular category
+// data for paticular category and name
 menHairCutrouter.get("/search",async (req,res)=>{
     const { name } = req.query
+    const { category } = req.query
     try{
-        const data = await MenHaircutModel.find({'name' : name})
-        res.status(200).send(data)
+        if(name){
+            const data = await MenHaircutModel.find({'name' : name})
+            res.status(200).send(data)  
+        }else if(category){
+            const data = await MenHaircutModel.find({'hairLength' : category})
+            res.status(200).send(data)
+        }else if(name && category){
+            const data = await MenHaircutModel.find({'name' : name,'hairLength': category})
+            res.status(200).send(data)
+        }
+        
     }
     catch(err){
         res.status(401).send({"Error" : err})
