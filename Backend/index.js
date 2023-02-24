@@ -27,7 +27,7 @@ const { menHairCutrouter } = require('./routes/mens_Route/men_haircut.model.js')
 const { menBeardrouter } = require('./routes/mens_Route/menbeard.route.js');
 const { mensparouter } = require('./routes/mens_Route/menspatreatment.route.js');
 
-const {validate}=require('./middlewares/validate')
+
 const {validate_google_oauth}=require('./middlewares/validate-google-auth')
 
 
