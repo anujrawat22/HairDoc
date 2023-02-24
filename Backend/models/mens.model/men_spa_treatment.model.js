@@ -1,14 +1,12 @@
 const mongoose = require("mongoose");
 
 const menSpaandTreatmentSchema = mongoose.Schema({
-  poster: { type: String },
   name: { type: String },
-  hairLength: { type: String },
-  price: { type: Number },
-  time: { type: Number },
+  memberprice: { type: Number },
+  time: { type : Date, default: Date.now },
   rating: { type: Number },
-  cutomerCount: { type: Number },
-  details: [String],
+  customerCount: { type: Number },
+  nonmemberprice : { type : Number}
 });
 
 

@@ -5,10 +5,10 @@ const menhairSchema = mongoose.Schema({
   name: { type: String },
   hairLength: { type: String },
   price: { type: Number },
-  time: { type: Number },
+  time : { type : Date, default: Date.now },
   rating: { type: Number },
   cutomerCount: { type: Number },
-  details: [String],
+  details: { type: String },
 });
 
 

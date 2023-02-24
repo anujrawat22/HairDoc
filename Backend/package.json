@@ -21,6 +21,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
+    "start" : "nodemon indextest.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
