@@ -6,6 +6,7 @@ function Home(){
     return (
         <div>
             <Navbar/>
+            <CaptionCarousel />
             <Footer />
         </div>
     )
