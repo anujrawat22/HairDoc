@@ -9,13 +9,13 @@ import Dena from "./contex/auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Dena>
-    <BrowserRouter>
+  <BrowserRouter>
+    <Dena>
       <ChakraProvider>
         <App />
       </ChakraProvider>
-    </BrowserRouter>
-  </Dena>
+    </Dena>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

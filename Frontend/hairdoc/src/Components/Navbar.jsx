@@ -28,8 +28,8 @@ export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
-  const { isauth } = useContext(AuthContext);
-  console.log("isAuth from navbar", isauth)
+  const { authState } = useContext(AuthContext);
+  console.log(authState);
 
   return (
     <>
@@ -57,44 +57,62 @@ export default function Navbar() {
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button
-              variant={"solid"}
-              color={"black"}
-              size={"sm"}
-              mr={4}
-              onClick={() => navigate("/signup")}
-            >
-              SignUp
-            </Button>
-            <Button
-              variant={"solid"}
-              color={"black"}
-              size={"sm"}
-              mr={4}
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </Button>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-                minW={0}
-              >
-                <Avatar
+            {authState.isauth ? (
+              <HStack>
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    rounded={"full"}
+                    variant={"link"}
+                    cursor={"pointer"}
+                    minW={0}
+                  >
+                    <Avatar
+                      size={"sm"}
+                      src={
+                        "https://avatars.githubusercontent.com/u/51295793?v=4"
+                      }
+                    />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>Link 1</MenuItem>
+                    <MenuItem>Link 2</MenuItem>
+                    <MenuDivider />
+                    <MenuItem>Link 3</MenuItem>
+                  </MenuList>
+                </Menu>
+                <Button
+                  variant={"solid"}
+                  color={"black"}
                   size={"sm"}
-                  src={"https://avatars.githubusercontent.com/u/51295793?v=4"}
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
-              </MenuList>
-            </Menu>
+                  mr={4}
+                  onClick={() => authState.handleLogout()}
+                >
+                  Logout
+                </Button>
+              </HStack>
+            ) : (
+              <>
+                <Button
+                  variant={"solid"}
+                  color={"black"}
+                  size={"sm"}
+                  mr={4}
+                  onClick={() => navigate("/signup")}
+                >
+                  SignUp
+                </Button>
+                <Button
+                  variant={"solid"}
+                  color={"black"}
+                  size={"sm"}
+                  mr={4}
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </Button>
+              </>
+            )}
           </Flex>
         </Flex>
 
