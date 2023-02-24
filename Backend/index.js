@@ -5,46 +5,7 @@ require("dotenv").config();
 var cookieParser = require("cookie-parser");
 
 const app = express();
-const { passport } = require("./config/google-oauth");
 
-const { authenticate } = require("./middlewares/authentication");
-const { checkRouter } = require("./routes/checkAuth.route");
-
-app.use(express.json());
-app.use(
-  cors({
-    origin: "*"
-  })
-);
-
-app.use(cookieParser());
-app.use("/check", authenticate, checkRouter);
-
-const { connection } = require("./config/db.js");
-
-const { UserRouter } = require("./routes/user_signup.router");
-const { validate } = require("./middlewares/validate");
-const { validate_google_oauth } = require("./middlewares/validate-google-auth");
-
-app.post("/signup", validate, UserRouter);
-app.post("/login", UserRouter);
-app.post("/verify", UserRouter);
-app.get("/", (req, res) => {
-  res.send("This is base router");
-});
-
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/login",
-    session: false
-  }),
-  function ({ user }, res) {
     // Successful authentication, redirect home.
     const token = jwt.sign(
       { userid: user._id, email: user.email, isAdmin: user.isAdmin },
@@ -56,6 +17,7 @@ app.get(
     // res.redirect('/');
   }
 );
+
 
 app.listen(8080, async () => {
   try {
