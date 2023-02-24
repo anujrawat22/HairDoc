@@ -1,5 +1,5 @@
 import LevelImg from "../images/Level.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -16,46 +16,17 @@ import {
   InputRightElement,
   Text
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { AuthContext } from "../contex/auth";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { authState } = useContext(AuthContext);
 
   const loginEmail = useRef(null);
   const loginPassword = useRef(null);
 
-  const handleLogin = async () => {
-    let obj = {
-      email: loginEmail.current.value,
-      password: loginPassword.current.value
-    };
-
-    if (obj.email == "" || obj.password == "") {
-      alert("Please fill all the details");
-      return;
-    }
-    try {
-      let response = await fetch("http://localhost:8080/login", {
-        method: "POST",
-        body: JSON.stringify(obj),
-        headers: {
-          "Content-type": "application/json",
-        },
-
-      });
-      let data = await response.json()
-      let token = data.token
-      localStorage.setItem("token", token)
-      console.log(JSON.parse(Buffer.from(token.split(".")[1], 'base64').toString()))
-
-    //   if (data) {
-    //     navigate("/");
-    //   }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
@@ -63,12 +34,15 @@ export default function Login() {
           <Heading fontSize={"2xl"}>LogIn</Heading>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
-            <Input type="email" ref={loginEmail}  />
+            <Input type="email" ref={loginEmail} />
           </FormControl>
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <InputGroup>
-              <Input type={showPassword ? "text" : "password"} ref={loginPassword} />
+              <Input
+                type={showPassword ? "text" : "password"}
+                ref={loginPassword}
+              />
               <InputRightElement h={"full"}>
                 <Button
                   variant={"ghost"}
@@ -93,7 +67,12 @@ export default function Login() {
             <Button
               bg={"#ebd3e1"}
               variant={"solid"}
-              onClick={handleLogin}
+              onClick={() =>
+                authState.handleLogin(
+                  loginEmail.current.value,
+                  loginPassword.current.value
+                )
+              }
               loadingText="Submitting"
             >
               Log in
