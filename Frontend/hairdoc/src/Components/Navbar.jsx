@@ -70,7 +70,7 @@ export default function Navbar() {
                     <Avatar
                       size={"sm"}
                       src={
-                        "https://avatars.githubusercontent.com/u/51295793?v=4"
+                        "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
                       }
                     />
                   </MenuButton>
