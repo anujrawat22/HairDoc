@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import Slider from 'react-slick';
+import { color } from 'framer-motion';
 
 const settings = {
   dots: true,
@@ -33,9 +34,9 @@ const settings = {
     {
       title: 'Image 1',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
       image:
-        'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+        'https://t4.ftcdn.net/jpg/01/81/61/29/360_F_181612908_uiOH8a4qWiNGuGS2Pg5dgwUIKJZ0C02w.jpg'
     },
     {
       title: 'Image 2',
@@ -62,6 +63,7 @@ const settings = {
       overflow={'hidden'}>
 
       <link
+      color={'white'}
         rel="stylesheet"
         type="text/css"
         charSet="UTF-8"
