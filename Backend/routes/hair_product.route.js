@@ -6,6 +6,8 @@ const {womenHairColorModel} =  require('../models/women/women_hair_color')
 const {womenHairTreatmentModel} = require('../models/women/women_hair_treatment')
 const {womenHairBestModel} = require('../models/women/women_beststaller')
 
+const {authenticate} = require('../middlewares/authentication')
+
 const womenRouter = express.Router()
 
 womenRouter.use(express.json())
@@ -43,7 +45,7 @@ womenRouter.get('/HairBest',async(req,res)=>{
 
 
 //Spa data add
-womenRouter.post('/create/HairSpa',async(req,res)=>{
+womenRouter.post('/create/HairSpa',authenticate,async(req,res)=>{
     const data = req.body
     try{
         const new_data = new womenHairSpaModel(data);
@@ -56,7 +58,7 @@ womenRouter.post('/create/HairSpa',async(req,res)=>{
 })
 
 //cut data add
-womenRouter.post('/create/HairCut',async(req,res)=>{
+womenRouter.post('/create/HairCut',authenticate,async(req,res)=>{
     const data = req.body
     try{
         const new_data = new womenHairCutModel(data);
@@ -69,7 +71,7 @@ womenRouter.post('/create/HairCut',async(req,res)=>{
 })
 
 //color data add
-womenRouter.post('/create/HairColor',async(req,res)=>{
+womenRouter.post('/create/HairColor',authenticate,async(req,res)=>{
     const data = req.body
     try{
         const new_data = new womenHairColorModel(data);
@@ -82,7 +84,7 @@ womenRouter.post('/create/HairColor',async(req,res)=>{
 })
 
 //HairTreatment data add
-womenRouter.post('/create/HairTreatment',async(req,res)=>{
+womenRouter.post('/create/HairTreatment',authenticate,async(req,res)=>{
     const data = req.body
     try{
         const new_data = new womenHairTreatmentModel(data);
@@ -95,7 +97,7 @@ womenRouter.post('/create/HairTreatment',async(req,res)=>{
 })
 
 //best data add
-womenRouter.post('/create/HairBest',async(req,res)=>{
+womenRouter.post('/create/HairBest',authenticate,async(req,res)=>{
     const data = req.body
     try{
         const new_data = new womenHairBestModel(data);
@@ -109,7 +111,7 @@ womenRouter.post('/create/HairBest',async(req,res)=>{
 
 
 // spa update data
-womenRouter.patch("/update/HairSpa/:appId", async(req,res)=>{
+womenRouter.patch("/update/HairSpa/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     const data = req.body
@@ -130,7 +132,7 @@ womenRouter.patch("/update/HairSpa/:appId", async(req,res)=>{
 })
 
 //cut update data
-womenRouter.patch("/update/HairCut/:appId", async(req,res)=>{
+womenRouter.patch("/update/HairCut/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     const data = req.body
@@ -151,7 +153,7 @@ womenRouter.patch("/update/HairCut/:appId", async(req,res)=>{
 })
 
 //color update data
-womenRouter.patch("/update/HairColor/:appId", async(req,res)=>{
+womenRouter.patch("/update/HairColor/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     const data = req.body
@@ -172,7 +174,7 @@ womenRouter.patch("/update/HairColor/:appId", async(req,res)=>{
 })
 
 //HairTreatment update data
-womenRouter.patch("/update/HairTreatment/:appId", async(req,res)=>{
+womenRouter.patch("/update/HairTreatment/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     const data = req.body
@@ -193,7 +195,7 @@ womenRouter.patch("/update/HairTreatment/:appId", async(req,res)=>{
 })
 
 //best data update
-womenRouter.patch("/update/HairBest/:appId", async(req,res)=>{
+womenRouter.patch("/update/HairBest/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     const data = req.body
@@ -215,7 +217,7 @@ womenRouter.patch("/update/HairBest/:appId", async(req,res)=>{
 
 
 //spa delete data
-womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
+womenRouter.delete("/delete/HairSpa/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     try{
@@ -234,17 +236,17 @@ womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
         
 })
 
-//spa delete data
-womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
+//cut delete data
+womenRouter.delete("/delete/HairCut/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     try{
-        const app = await womenHairSpaModel.findOne({userID:appid})
+        const app = await womenHairCutModel.findOne({userID:appid})
         if(appid !== app.userID){
             res.send("not valid id")
         }
         else{
-           await womenHairSpaModel.findByIdAndDelete({_id:app._id});
+           await womenHairCutModel.findByIdAndDelete({_id:app._id});
            res.send("app deleted")
         }
     }
@@ -254,17 +256,17 @@ womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
         
 })
 
-//spa delete data
-womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
+//color delete data
+womenRouter.delete("/delete/HairColor/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     try{
-        const app = await womenHairSpaModel.findOne({userID:appid})
+        const app = await womenHairColorModel.findOne({userID:appid})
         if(appid !== app.userID){
             res.send("not valid id")
         }
         else{
-           await womenHairSpaModel.findByIdAndDelete({_id:app._id});
+           await womenHairColorModel.findByIdAndDelete({_id:app._id});
            res.send("app deleted")
         }
     }
@@ -274,38 +276,17 @@ womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
         
 })
 
-//spa delete data
-womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
+//hairtreatment delete data
+womenRouter.delete("/delete/HairTreatment/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     try{
-        const app = await womenHairSpaModel.findOne({userID:appid})
+        const app = await womenHairTreatmentModel.findOne({userID:appid})
         if(appid !== app.userID){
             res.send("not valid id")
         }
         else{
-           await womenHairSpaModel.findByIdAndDelete({_id:app._id});
-           res.send("app deleted")
-        }
-    }
-    catch(err){
-        res.send(err)
-    }
-        
-})
-
-
-//spa delete data
-womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
-    const appid  = req.params.appId;
-    const userID = req.body.userID;
-    try{
-        const app = await womenHairSpaModel.findOne({userID:appid})
-        if(appid !== app.userID){
-            res.send("not valid id")
-        }
-        else{
-           await womenHairSpaModel.findByIdAndDelete({_id:app._id});
+           await womenHairTreatmentModel.findByIdAndDelete({_id:app._id});
            res.send("app deleted")
         }
     }
@@ -316,17 +297,17 @@ womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
 })
 
 
-//spa delete data
-womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
+//best delete data
+womenRouter.delete("/delete/HairBest/:appId",authenticate, async(req,res)=>{
     const appid  = req.params.appId;
     const userID = req.body.userID;
     try{
-        const app = await womenHairSpaModel.findOne({userID:appid})
+        const app = await womenHairBestModel.findOne({userID:appid})
         if(appid !== app.userID){
             res.send("not valid id")
         }
         else{
-           await womenHairSpaModel.findByIdAndDelete({_id:app._id});
+           await womenHairBestModel.findByIdAndDelete({_id:app._id});
            res.send("app deleted")
         }
     }
@@ -335,5 +316,6 @@ womenRouter.delete("/delete/HairSpa/:appId", async(req,res)=>{
     }
         
 })
+
 
 module.exports = {womenRouter}

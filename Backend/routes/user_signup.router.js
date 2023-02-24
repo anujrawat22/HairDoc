@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 require('dotenv').config()
 var cookieParser = require('cookie-parser')
+const fs = require("fs")
 
 const {authenticate} = require('../middlewares/authentication')
 
@@ -147,6 +148,15 @@ UserRouter.post('/login', async (req, res) => {
         res.status(401).send({ "msg": "Invailid credentials" })
     }
 })
+
+//logout
+// UserRouter.get("/logout",(req,res)=>{
+//     const token =  req.headers.authorization?.split(' ')[1] || req.cookies?.token
+//     const blacklistData = JSON.parse(fs.readFileSync("./blacklist.json","utf-8"))
+//     blacklistData.push(token)
+//     fs.writeFileSync('./blacklist.json',JSON.stringify(blacklistData))
+//     return res.send("user logged out successfully")
+// })
 
 
 
