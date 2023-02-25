@@ -23,9 +23,10 @@ menHairCutrouter.get("/",async (req,res)=>{
 
 
 // data for paticular category and name
-menHairCutrouter.get("/search",async (req,res)=>{
+menHairCutrouter.get("/search/:ID",async (req,res)=>{
     const { name } = req.query
     const { category } = req.query
+    const { ID } = req.params
     try{
         if(name){
             const data = await MenHaircutModel.find({'name' : name})
@@ -35,6 +36,9 @@ menHairCutrouter.get("/search",async (req,res)=>{
             res.status(200).send(data)
         }else if(name && category){
             const data = await MenHaircutModel.find({'name' : name,'hairLength': category})
+            res.status(200).send(data)
+        }else if(ID){
+            const data = await MenHaircutModel.find({_id : ID})
             res.status(200).send(data)
         }
         
@@ -66,7 +70,7 @@ menHairCutrouter.post("/create", async(req,res)=>{
 
 
 // update any mens spa and tretment data
-menHairCutrouter.post("/update/:ID" ,async(req,res)=>{
+menHairCutrouter.put("/update/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     const payload = req.body
 
@@ -86,7 +90,7 @@ menHairCutrouter.post("/update/:ID" ,async(req,res)=>{
 
 
 // delete
-menHairCutrouter.post("/delete/:ID" ,async(req,res)=>{
+menHairCutrouter.delete("/delete/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     
 

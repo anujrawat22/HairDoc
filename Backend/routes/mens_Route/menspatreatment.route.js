@@ -23,11 +23,18 @@ mensparouter.get("/",async (req,res)=>{
 
 
 // data for paticular category
-mensparouter.get("/search",async (req,res)=>{
+mensparouter.get("/search/:ID",async (req,res)=>{
     const { name } = req.query
+    const { ID } = req.params
     try{
-        const data = await MenSpaandTreatment.find({'name' : name})
+        if(ID){
+            const data = await MenSpaandTreatment.find({_id : ID})
         res.status(200).send(data)
+        }else{
+            const data = await MenSpaandTreatment.find({'name' : name})
+            res.status(200).send(data)
+        }
+        
     }
     catch(err){
         res.status(401).send({"Error" : err})
@@ -56,7 +63,7 @@ mensparouter.post("/create", async(req,res)=>{
 
 
 // update any mens spa and tretment data
-mensparouter.post("/update/:ID" ,async(req,res)=>{
+mensparouter.put("/update/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     const payload = req.body
 
@@ -76,7 +83,7 @@ mensparouter.post("/update/:ID" ,async(req,res)=>{
 
 
 // delete
-mensparouter.post("/delete/:ID" ,async(req,res)=>{
+mensparouter.delete("/delete/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     
 

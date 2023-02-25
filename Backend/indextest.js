@@ -29,6 +29,7 @@ const { menHairCutrouter } = require('./routes/mens_Route/men_haircut.model.js')
 const { menBeardrouter } = require('./routes/mens_Route/menbeard.route.js');
 const { mensparouter } = require('./routes/mens_Route/menspatreatment.route.js');
 const { checkRouter } = require("./routes/checkAuth.route");
+const { StatusRouter } = require("./routes/mens_Route/mensStatus.route");
 
 
 //routes
@@ -40,7 +41,7 @@ app.use("/men/haircolor",menHairColorrouter)
 app.use("/men/haircut",menHairCutrouter )
 app.use("/men/beard", menBeardrouter)
 app.use("/men/spa",mensparouter)
-
+app.use("/men/status",StatusRouter)
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile','email'] }));

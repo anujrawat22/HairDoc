@@ -23,11 +23,25 @@ menBeardrouter.get("/",async (req,res)=>{
 
 
 // data for paticular category
-menBeardrouter.get("/search",async (req,res)=>{
+menBeardrouter.get("/search/:ID",async (req,res)=>{
     const { name } = req.query
+    const { ID } = req.params
+    const { facetype } = req.query
     try{
-        const data = await MenbeardModel.find({'name' : name})
-        res.status(200).send(data)
+        if(ID){
+            const data = await MenbeardModel.find({_id : ID})
+            res.status(200).send(data)
+        }else if(name && facetype){
+            const data = await MenbeardModel.find({name,facetype})
+            res.status(200).send(data)
+        }else if(name){
+            const data = await MenbeardModel.find({name})
+            res.status(200).send(data)
+        }else if(facetype){
+            const data = await MenbeardModel.find({facetype})
+            res.status(200).send(data)
+        }
+        
     }
     catch(err){
         res.status(401).send({"Error" : err})
@@ -56,7 +70,7 @@ menBeardrouter.post("/create", async(req,res)=>{
 
 
 // update any mens spa and tretment data
-menBeardrouter.post("/update/:ID" ,async(req,res)=>{
+menBeardrouter.put("/update/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     const payload = req.body
 
@@ -76,7 +90,7 @@ menBeardrouter.post("/update/:ID" ,async(req,res)=>{
 
 
 // delete
-menBeardrouter.post("/delete/:ID" ,async(req,res)=>{
+menBeardrouter.delete("/delete/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     
 

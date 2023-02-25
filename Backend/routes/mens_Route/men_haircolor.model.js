@@ -23,11 +23,18 @@ menHairColorrouter.get("/",async (req,res)=>{
 
 
 // data for paticular category
-menHairColorrouter.get("/search",async (req,res)=>{
+menHairColorrouter.get("/search/:ID",async (req,res)=>{
     const { name } = req.query
+    const { ID } = req.params
     try{
-        const data = await MenHairColorModel.find({'name' : name})
+        if(ID){
+            const data = await MenHairColorModel.find({_id : ID})
         res.status(200).send(data)
+        }else{
+            const data = await MenHairColorModel.find({'name' : name})
+            res.status(200).send(data)
+        }
+        
     }
     catch(err){
         res.status(401).send({"Error" : err})
@@ -56,7 +63,7 @@ menHairColorrouter.post("/create", async(req,res)=>{
 
 
 // update any mens spa and tretment data
-menHairColorrouter.post("/update/:ID" ,async(req,res)=>{
+menHairColorrouter.put("/update/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     const payload = req.body
 
@@ -76,7 +83,7 @@ menHairColorrouter.post("/update/:ID" ,async(req,res)=>{
 
 
 // delete
-menHairColorrouter.post("/delete/:ID" ,async(req,res)=>{
+menHairColorrouter.delete("/delete/:ID" ,async(req,res)=>{
     const ID = req.params.ID
     
 
