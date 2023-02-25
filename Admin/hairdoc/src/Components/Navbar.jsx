@@ -1,0 +1,96 @@
+import React from 'react';
+import {
+  Box,
+  Flex,
+  HStack,
+  Link,
+  IconButton,
+  useDisclosure,
+  Stack,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+
+const Links = ['Womens', 'Mens', 'About'];
+
+const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <Box>
+      <Flex
+        bg={useColorModeValue('gray.100', 'gray.900')}
+        color={useColorModeValue('gray.600', 'white')}
+        minH={'60px'}
+        py={{ base: 2 }}
+        px={{ base: 4 }}
+        borderBottom={1}
+        borderStyle={'solid'}
+        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        align={'center'}
+      >
+        <Flex
+          flex={{ base: 1, md: 'auto' }}
+          ml={{ base: -2 }}
+          display={{ base: 'flex', md: 'none' }}
+        >
+          <IconButton
+            onClick={isOpen ? onClose : onOpen}
+            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+            variant={'ghost'}
+            aria-label={'Toggle Navigation'}
+          />
+        </Flex>
+        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+          <Link
+            textAlign={useColorModeValue('center', 'center')}
+            fontFamily={'heading'}
+            color={useColorModeValue('gray.800', 'white')}
+            href={'/'}
+          >
+            HairDoc salon admin
+          </Link>
+
+          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+            <HStack spacing={8}>
+              {Links.map((link) => (
+                <Link key={link} fontWeight={500} color={'gray.600'} href={'#'}>
+                  {link}
+                </Link>
+              ))}
+            </HStack>
+          </Flex>
+        </Flex>
+
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          justify={'flex-end'}
+          direction={'row'}
+          spacing={6}
+        >
+         
+        </Stack>
+      </Flex>
+
+      {isOpen ? (
+        <Box pb={4} display={{ md: 'none' }}>
+          <Stack as={'nav'} spacing={4}>
+            {Links.map((link) => (
+              <Link
+                key={link}
+                href={'#'}
+                fontWeight={500}
+                color={'gray.600'}
+                onClick={onClose}
+              >
+                {link}
+              </Link>
+            ))}
+          </Stack>
+        </Box>
+      ) : null}
+    </Box>
+  );
+};
+
+export default Navbar;
