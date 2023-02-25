@@ -12,6 +12,6 @@ const womenSpaSchema = mongoose.Schema({
 })
 
 
-const womenHairSpaModel = mongoose.model("/womenHairSpa",womenSpaSchema)
+const womenHairSpaModel = mongoose.model("womenHairSpa",womenSpaSchema)
 
 module.exports = {womenHairSpaModel}

@@ -1,5 +1,6 @@
 import { ReactNode, useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import logo from "../images/Level.png"
 import {
   Box,
   Flex,
@@ -15,7 +16,9 @@ import {
   MenuDivider,
   useDisclosure,
   useColorModeValue,
-  Stack
+  Stack,
+  Text,
+  Image
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
@@ -42,18 +45,28 @@ export default function Navbar() {
             display={{ lg: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={"center"}>
+          <HStack spacing={6} alignItems={"center"}>
             <Box>
-              <img src="" alt="" />
+              <Image
+              w="10%"
+              src={logo} 
+              alt={"Login Image"}
+              objectFit={"logo"}
+              rounded="lg"
+              size={"sm"}
+              />
             </Box>
             <HStack
               as={"nav"}
-              spacing={4}
+              spacing={3}
               display={{ base: "none", md: "none", lg: "block" }}
             >
-              {Links.map((link) => (
-                <Link key={link}>{link}</Link>
-              ))}
+              <Flex  gap={6}>
+                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/")}>Home</Text>
+                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/women")}>Women</Text>
+                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("#")}>men</Text>
+              </Flex>
+              
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
