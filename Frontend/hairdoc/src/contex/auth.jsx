@@ -69,6 +69,7 @@ const Dena = (props) => {
   const handleLogout = () => {
     setIsauth(false);
     setToken("");
+    localStorage.removeItem("token");
   };
 
   const authState = { isauth, token, handleLogin, handleLogout };
