@@ -5,7 +5,7 @@ const womenHairBestSchema = mongoose.Schema({
     name:{type:String},
     hairLength:{type:String},
     price:{type:Number},
-    time:{type:Number},
+    time:{type:String},
     rating:{type:Number},
     cutomerCount:{type:Number},
     details:[String]

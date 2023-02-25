@@ -5,13 +5,14 @@ const womenColorSchema = mongoose.Schema({
     name:{type:String},
     hairLength:{type:String},
     price:{type:Number},
-    time:{type:Number},
+    time:{type:String},
     rating:{type:Number},
     cutomerCount:{type:Number},
-    details:[String]
+    details:[String],
+    
 })
 
 
-const womenHairColorModel = mongoose.model("/womenHairColor",womenColorSchema)
+const womenHairColorModel = mongoose.model("womenHairColor",womenColorSchema)
 
 module.exports = {womenHairColorModel}
