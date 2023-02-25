@@ -11,15 +11,14 @@ import {
 } from '@chakra-ui/react';
 
 
-const MensBeardCut = () => {
+const MensSpa = () => {
   const toast = useToast();
   const [formData, setFormData] = useState({
-    poster: '',
     name: '',
-    price: '',
     rating: '',
     customerCount: '',
-    facetype: '',
+    memberprice:'',
+    nonmemberprice:''
   });
 
   const handleInputChange = (e) => {
@@ -31,11 +30,11 @@ const MensBeardCut = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.name && formData.price && formData.rating && formData.customerCount && formData.facetype) {
+    if (formData.name && formData.memberprice && formData.rating && formData.customerCount && formData.nonmemberprice) {
     //   onSubmit(formData);
    
     try {
-        let response = await fetch("http://localhost:8080/men/beard/create", {
+        let response = await fetch("http://localhost:8080/men/spa/create", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {
@@ -75,7 +74,7 @@ const MensBeardCut = () => {
 
   return (
     <Box maxW="lg" m={'auto'} borderWidth="1px" borderRadius="lg" overflow="hidden" p={3}>
-      <Text fontSize={'lg'}>Add mens beard service</Text>
+      <Text fontSize={'lg'}>Add mens Spa service</Text>
       <form onSubmit={handleSubmit}>
         <FormControl id="image">
           <FormLabel>Poster Link</FormLabel>
@@ -87,9 +86,9 @@ const MensBeardCut = () => {
           <Input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
         </FormControl>
 
-        <FormControl id="price" mt={4}>
-          <FormLabel>Price</FormLabel>
-          <Input type="number" name="price" value={formData.price} onChange={handleInputChange} required />
+        <FormControl id="memberprice" mt={4}>
+          <FormLabel>Member price</FormLabel>
+          <Input type="number" name="memberprice" value={formData.memberprice} onChange={handleInputChange} required />
         </FormControl>
 
 
@@ -103,9 +102,9 @@ const MensBeardCut = () => {
           <Input type="number" name="customerCount" value={formData.customerCount} onChange={handleInputChange} required />
         </FormControl>
 
-        <FormControl id="type" mt={4}>
-          <FormLabel>FaceType</FormLabel>
-          <Input type="text" name="facetype" value={formData.facetype} onChange={handleInputChange} required />
+        <FormControl id="nonmemberprice" mt={4}>
+          <FormLabel>Non Member Price</FormLabel>
+          <Input type="text" name="nonmemberprice" value={formData.nonmemberprice} onChange={handleInputChange} required />
            
         </FormControl>
 
@@ -119,4 +118,4 @@ const MensBeardCut = () => {
   )
 }
 
-export default MensBeardCut
+export default MensSpa

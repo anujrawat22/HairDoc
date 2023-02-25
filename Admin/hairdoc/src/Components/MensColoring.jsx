@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   Box,
@@ -11,15 +12,14 @@ import {
 } from '@chakra-ui/react';
 
 
-const MensBeardCut = () => {
+const MensColor = () => {
   const toast = useToast();
   const [formData, setFormData] = useState({
     poster: '',
     name: '',
     price: '',
     rating: '',
-    customerCount: '',
-    facetype: '',
+    customerCount: ''
   });
 
   const handleInputChange = (e) => {
@@ -31,18 +31,18 @@ const MensBeardCut = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.name && formData.price && formData.rating && formData.customerCount && formData.facetype) {
+    if (formData.name && formData.price && formData.rating && formData.customerCount) {
     //   onSubmit(formData);
    
     try {
-        let response = await fetch("http://localhost:8080/men/beard/create", {
+        let response = await fetch("http://localhost:8080/men/haircolor/create", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {
             "Content-type": "application/json"
           }
         });
-      // await response.json()
+    //   await response.json()
         toast({
             title: "Service added.",
             description: "Your new service has been added to the list.",
@@ -75,7 +75,7 @@ const MensBeardCut = () => {
 
   return (
     <Box maxW="lg" m={'auto'} borderWidth="1px" borderRadius="lg" overflow="hidden" p={3}>
-      <Text fontSize={'lg'}>Add mens beard service</Text>
+      <Text fontSize={'lg'}>Add mens coloring service</Text>
       <form onSubmit={handleSubmit}>
         <FormControl id="image">
           <FormLabel>Poster Link</FormLabel>
@@ -103,12 +103,6 @@ const MensBeardCut = () => {
           <Input type="number" name="customerCount" value={formData.customerCount} onChange={handleInputChange} required />
         </FormControl>
 
-        <FormControl id="type" mt={4}>
-          <FormLabel>FaceType</FormLabel>
-          <Input type="text" name="facetype" value={formData.facetype} onChange={handleInputChange} required />
-           
-        </FormControl>
-
     <Flex justify="space-between" align="center" mt={5}>
       <Button colorScheme="blue" type="submit">
         Add Service
@@ -119,4 +113,4 @@ const MensBeardCut = () => {
   )
 }
 
-export default MensBeardCut
+export default MensColor
