@@ -1,6 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { IdContext } from '../men/Contexts/Id_context'
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Stack,
+  Heading,
+  Text,
+  Divider,
+  ButtonGroup,
+  Button,
+  Image,
+} from "@chakra-ui/react";
+
 function Beard() {
   const [beardData, setbeardData] = useState([]);
   const [beardId,setbeardId]= useState({
@@ -12,7 +26,7 @@ function Beard() {
       .get("http://localhost:8080/men/beard/")
       //   .then(res=> console.log(res.data))
       .then((res) => setbeardData(res.data));
-      console.log(id)
+      // console.log(id)
   }, [id]);
 
   const handleClick = (e)=>{
@@ -25,13 +39,34 @@ function Beard() {
         ? beardData.map((item) => {
             return (
               <>
-               <div key={item._id}  className="haircolor-container" style={{maxWidth:'200px'}}>
-                <img src={item.poster} style={{width:"10rem"}} alt="" />
-                <p> {item.name}</p>
-                <p style={{display:'none'}}>{item._id}</p>
-                <p>{item.price}</p>
-                <button onClick={(e)=>handleClick(e)}  id={item._id}>Add to cart</button>
-               </div>
+                <Card maxW="sm" key={item._id}>
+                  <CardBody>
+                    <Image
+                      src={item.poster}
+                      alt="Green double couch with wooden legs"
+                      borderRadius="lg"
+                     style={{width : '90%',height : '75%'}}
+                     />
+                    <Stack mt="6" spacing="3">
+                      <Heading size="md">{item.name}</Heading>
+                      <Text fontSize="2xl">Only at : ₹ {item.price}</Text>
+                    </Stack>
+                  </CardBody>
+                  <Divider />
+                  <CardFooter
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <Button
+                      onClick={(e) => handleClick(e)}
+                      id={item._id}
+                      variant="solid"
+                      colorScheme="blue"
+                      style={{ width: "20vw" }}
+                    >
+                      Add to Cart
+                    </Button>
+                  </CardFooter>
+                </Card>
               </>
             );
           })

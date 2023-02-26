@@ -1,6 +1,21 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { IdContext } from '../men/Contexts/Id_context'
+import {
+  Card,
+
+  CardBody,
+  CardFooter,
+  Stack,
+  Heading,
+  Text,
+  Divider,
+
+  Button,
+  Image,
+} from "@chakra-ui/react";
+
+
 function SpaandTreatment() {
   const [spaData, setspaData] = useState([]);
   const [spaId,setspaId]= useState({
@@ -25,14 +40,36 @@ function SpaandTreatment() {
         ? spaData.map((item) => {
             return (
               <>
-               <div key={item._id}  className="haircolor-container" style={{maxWidth:'200px'}}>
                
-                <p> {item.name}</p>
-                <p style={{display:'none'}}>{item._id}</p>
-                <p>Member Price : {item.memberprice}</p>
-                <p>Non Member Price : {item.nonmemberprice}</p>
-                <button onClick={(e)=>handleClick(e)}  id={item._id}>Add to cart</button>
-               </div>
+
+
+
+
+
+               <Card maxW="sm" key={item._id}>
+                  <CardBody>
+                    
+                    <Stack mt="6" spacing="3">
+                      <Heading size="md">{item.name}</Heading>
+                      <Text fontSize="2xl">Member Price : {item.memberprice}</Text>
+                      <Text fontSize="2xl">Non Member Price : {item.nonmemberprice}</Text>
+                    </Stack>
+                  </CardBody>
+                  <Divider />
+                  <CardFooter
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <Button
+                      onClick={(e) => handleClick(e)}
+                      id={item._id}
+                      variant="solid"
+                      colorScheme="blue"
+                      style={{ width: "20vw" }}
+                    >
+                      Add to Cart
+                    </Button>
+                  </CardFooter>
+                </Card>
               </>
             );
           })
