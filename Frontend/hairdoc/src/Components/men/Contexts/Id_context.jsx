@@ -9,7 +9,7 @@ const IdContext = createContext();
         colorId : '',
         spaId : ''
     });
-    
+    // console.log('context running',id)
     return (
         <IdContext.Provider value={{ id, setId }}>
             {children}
