@@ -9,6 +9,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
+import Mens from './category';
 
 
 const MensBeardCut = () => {
@@ -75,6 +76,7 @@ const MensBeardCut = () => {
 
   return (
     <Box maxW="lg" m={'auto'} borderWidth="1px" borderRadius="lg" overflow="hidden" p={3}>
+   
       <Text fontSize={'lg'}>Add mens beard service</Text>
       <form onSubmit={handleSubmit}>
         <FormControl id="image">

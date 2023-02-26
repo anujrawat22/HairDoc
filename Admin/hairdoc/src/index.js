@@ -5,16 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
-import Dena from "./contex/auth";
+// import Dena from "./contex/auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <Dena>
+    
       <ChakraProvider>
         <App />
       </ChakraProvider>
-    </Dena>
+
   </BrowserRouter>
 );
 

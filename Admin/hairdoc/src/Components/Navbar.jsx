@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-const Links = ['Womens', 'Mens', 'About'];
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -53,11 +52,10 @@ const Navbar = () => {
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <HStack spacing={8}>
-              {Links.map((link) => (
-                <Link key={link} fontWeight={500} color={'gray.600'} href={'#'}>
-                  {link}
-                </Link>
-              ))}
+
+              <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens'}>Mens</Link>
+              <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens'}>Womens</Link>
+              <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens/beard'}>All Appointment</Link>
             </HStack>
           </Flex>
         </Flex>
@@ -68,24 +66,18 @@ const Navbar = () => {
           direction={'row'}
           spacing={6}
         >
-         
+
         </Stack>
       </Flex>
 
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            {Links.map((link) => (
-              <Link
-                key={link}
-                href={'#'}
-                fontWeight={500}
-                color={'gray.600'}
-                onClick={onClose}
-              >
-                {link}
-              </Link>
-            ))}
+
+            <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens'}>Mens</Link>
+            <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens/beard'}>Womens</Link>
+            <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens/beard'}>All Appointment</Link>
+
           </Stack>
         </Box>
       ) : null}
