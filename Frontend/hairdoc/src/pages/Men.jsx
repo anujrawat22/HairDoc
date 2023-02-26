@@ -3,8 +3,6 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   Card,
   CardBody,
-  CardFooter,
-  Center,
   Heading,
   Image,
   Stack,
@@ -28,9 +26,23 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Input,
+  
   Button,
 } from "@chakra-ui/react";
+
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
+
+import DatePicker from 'react-date-picker';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 function Men() {
   const { id, setId } = useContext(IdContext);
@@ -44,17 +56,27 @@ function Men() {
   const [ beard , setBeard ] = useState({})
   const [color , setColor] = useState({})
   const [ spa, setSpa] = useState({})
-  
+  const [cartArr , setCartArr] = useState([])
   let [sum,setSum] = useState(0)
+  const total = ()=>{
+     if(cartArr.length>0){
+      cartArr.forEach((item)=>{
+        setSum(x => x+item.price)
+      })
+     }
+    console.log(sum,'sum')
+  }
+  const [value, onChange] = useState(new Date());
   useEffect(() => {
     if (id.hairId !== "") {
       axios
         .get(`http://localhost:8080/men/haircut/search/${id.hairId}`)
         .then((res) => {
           sethair({...res.data[0]})
+          setCartArr([...cartArr,res.data[0]])
         });
 
-        
+        console.log(cartArr,'cartarr')
     }
 
 
@@ -63,6 +85,7 @@ function Men() {
       .get(`http://localhost:8080/men/beard/search/${id.beardId}`)
       .then(res=>{
         setBeard({...res.data[0]})
+        setCartArr([...cartArr,res.data[0]])
       })
 
      
@@ -73,6 +96,7 @@ function Men() {
 
     .then(res=>{
       setColor({...res.data[0]})
+      setCartArr([...cartArr,res.data[0]])
     })
 
     
@@ -83,40 +107,43 @@ if(id.spaId!== ''){
   axios.get(`http://localhost:8080/men/spa/search/${id.spaId}`)
   .then(res=>{
     setSpa({...res.data[0]})
+    setCartArr([...cartArr,res.data[0]])
   })
 
   
 }
 
-if(Object.keys(hair).length > 0){
-  setSum((prev)=>
-    prev + hair.price
-  )
-  console.log(sum,'sum')
-  }
+// if(Object.keys(hair).length > 0){
+//   setSum((prev)=>
+//     prev + hair.price
+//   )
+//   console.log(sum,'sum')
+//   }
 
-  if(Object.keys(beard).length > 0){
-    setSum((prev)=>
-    prev + beard.price
-  )
-    }
+//   if(Object.keys(beard).length > 0){
+//     setSum((prev)=>
+//     prev + beard.price
+//   )
+//     }
 
-    if(Object.keys(color).length > 0){
-      setSum((prev)=>
-    prev + color.price
-  )
-      }
+//     if(Object.keys(color).length > 0){
+//       setSum((prev)=>
+//     prev + color.price
+//   )
+//       }
 
-      if(Object.keys(spa).length > 0){
-        setSum((prev)=>
-    prev + spa.price
-  )
-        }
+//       if(Object.keys(spa).length > 0){
+//         setSum((prev)=>
+//     prev + spa.price
+//   )
+//         }
 
-        console.log(sum,'sum')
+//         console.log(sum,'sum')
   }, [id]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isDrawerOpen , onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure()
+const { isOpen: isModalOpen , onOpen: onModalOpen, onClose: onModalClose } = useDisclosure()
   const btnRef = React.useRef();
 
   // const calculateTotal= ()=>{
@@ -151,6 +178,7 @@ if(Object.keys(hair).length > 0){
   return (
     <>
       <Navbar />
+      <DatePicker onChange={onChange} value={value} />
       <h1>Hair Cut</h1>
       <Haircut />
 
@@ -166,7 +194,7 @@ if(Object.keys(hair).length > 0){
 
       <Button
         ref={btnRef}
-        onClick={onOpen}
+        onClick={onDrawerOpen}
         style={{
           width: "4rem",
           height: "4rem",
@@ -186,9 +214,9 @@ if(Object.keys(hair).length > 0){
         />
       </Button>
       <Drawer
-        isOpen={isOpen}
+        isOpen={isDrawerOpen}
         placement="right"
-        onClose={onClose}
+        onClose={onDrawerClose}
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
@@ -296,14 +324,40 @@ if(Object.keys(hair).length > 0){
 
 
 
-<Text fontSize="sm">{sum}</Text>
+
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="blue">Checkout</Button>
+            <Button colorScheme="blue" onClick={()=>{
+              total()
+              onModalOpen()
+            }}>Checkout</Button>
+
+
+
+
+            
+
+<Modal isOpen={isModalOpen} onClose={onModalClose}>
+  <ModalOverlay />
+  <ModalContent>
+    <ModalHeader>Proceed To Payment</ModalHeader>
+    <ModalCloseButton />
+    <ModalBody>
+      <Text>Your Total is : {sum}</Text>
+    </ModalBody>
+
+    <ModalFooter>
+      <Button colorScheme='blue' mr={3} onClick={onModalClose}>
+        Close
+      </Button>
+      <Button variant='ghost'>Pay Now</Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
