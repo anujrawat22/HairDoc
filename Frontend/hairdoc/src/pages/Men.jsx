@@ -7,20 +7,18 @@ import Haircolor from '../Components/men/Haircolor';
 import SpaandTreatment from '../Components/men/SpaandTreatment';
 import Cart from '../Components/men/Cart';
 import {ShoppingCartOutlined} from '@ant-design/icons'
-import { Button, Drawer } from 'antd';
+
+import { IdProvider } from '../Components/men/Contexts/Id_context';
+import Navbar from '../Components/Navbar';
 
 
 
 function Men() {
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
+ 
   return (
     <>
+    <Navbar/>
+    <IdProvider>
     <h1>
       Hair Cut
     </h1>
@@ -38,15 +36,13 @@ function Men() {
 
 <Cart/>
 
-<ShoppingCartOutlined onClick={showDrawer} style={{fontSize : '3rem',position : 'fixed',top : '90vh',left : '92vw',cursor : 'pointer'}}/>
+
 
 
       
-      <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
+      
+    </IdProvider>
+    
     
     </>
   );
