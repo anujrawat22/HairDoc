@@ -9,7 +9,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import Mens from './category';
+import Category from './category'
 
 
 const MensBeardCut = () => {

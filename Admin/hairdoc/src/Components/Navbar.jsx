@@ -54,7 +54,7 @@ const Navbar = () => {
             <HStack spacing={8}>
 
               <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens'}>Mens</Link>
-              <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens'}>Womens</Link>
+              <Link key={0} fontWeight={500} color={'gray.500'} href={'/womens'}>Womens</Link>
               <Link key={0} fontWeight={500} color={'gray.500'} href={'/mens/beard'}>All Appointment</Link>
             </HStack>
           </Flex>

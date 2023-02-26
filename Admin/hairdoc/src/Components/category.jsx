@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react';
 import Navbar from './Navbar';
 
-export default function Mens() {
-
+export default function Category(props) {
+    const {text}=props
     return (
         <Box>
         <Navbar/>
@@ -31,7 +31,8 @@ export default function Mens() {
                         color={useColorModeValue('gray.800', 'white')}
                         href={'/mens/beard'}
                     >
-                        Mens Beard Cut
+                        {/* Mens Beard Cut */}
+                        {text[0]}
 
                     </Link>
                 </Flex>
@@ -41,7 +42,8 @@ export default function Mens() {
                         color={useColorModeValue('gray.800', 'white')}
                         href={'/mens/hair'}
                     >
-                        Mens Hair Cut
+                        {/* Mens Hair Cut */}
+                        {text[1]}
 
                     </Link>
                 </Flex>
@@ -51,7 +53,8 @@ export default function Mens() {
                         color={useColorModeValue('gray.800', 'white')}
                         href={'/mens/color'}
                     >
-                        Mens Coloring
+                        {/* Mens Coloring */}
+                        {text[2]}
 
                     </Link>
                 </Flex>
@@ -61,7 +64,8 @@ export default function Mens() {
                         color={useColorModeValue('gray.800', 'white')}
                         href={'/mens/spa'}
                     >
-                        Mens Spa
+                        {/* Mens Spa */}
+                        {text[3]}
 
                     </Link>
                 </Flex>

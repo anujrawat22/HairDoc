@@ -32,25 +32,29 @@ const settings = {
 
   const cards = [
     {
-      title: 'Image 1',
+      title: '',
+     
       text:
-        "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
-      image:
-        'https://t4.ftcdn.net/jpg/01/81/61/29/360_F_181612908_uiOH8a4qWiNGuGS2Pg5dgwUIKJZ0C02w.jpg'
+      "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top.Our team of experienced hair stylists are dedicated to giving you the look you want",
+      image:'https://exoticindianbeauty.com.au/wp-content/uploads/2021/07/eex.jpg'
+        // 'https://t4.ftcdn.net/jpg/01/81/61/29/360_F_181612908_uiOH8a4qWiNGuGS2Pg5dgwUIKJZ0C02w.jpg'
     },
     {
-      title: 'Image 2',
+      title: '',
+      text:
+      "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
+
+      image:
+      'https://img4.nbstatic.in/tr:w-500/592811bccff47e000adffcf4.jpg'
+// 'https://media.istockphoto.com/id/1325440885/photo/retro-styled-beauty-salon.jpg?s=612x612&w=0&k=20&c=uEdh3ypS-Zeq9X5YJzIfBaiaoFYstRFNowZBTbQWT8I='    
+},
+    {
+      title: 'Womens hairstylists',
       text:
       "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
       image:
-        'https://images.unsplash.com/photo-1438183972690-6d4658e3290e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2274&q=80',
-    },
-    {
-      title: 'Image 3',
-      text:
-      "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
-      image:
-        'https://images.unsplash.com/photo-1507237998874-b4d52d1dd655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      'https://www.softwaresuggest.com/blog/wp-content/uploads/2019/09/salon-business.png' 
+      // 'https://images.unsplash.com/photo-1507237998874-b4d52d1dd655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
     },
   ];
 
@@ -103,7 +107,7 @@ const settings = {
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={'6xl'}
+            height={'100vh'}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
@@ -121,7 +125,7 @@ const settings = {
                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
                   {card.title}
                 </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
+                <Text fontSize={{ base: 'md', lg: '30px' }} color="whiteAlpha.900">
                   {card.text}
                 </Text>
               </Stack>

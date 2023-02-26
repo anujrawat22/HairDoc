@@ -11,7 +11,8 @@ const AllRoutes = () => {
   return (
     <Routes>
     <Route path="/" element={<Home/>}/>
-    <Route path='/mens' element={<Mens/>} />
+    <Route path='/mens' element={<Mens text={['Mens Beard Cut','Mens Hair Cut','Mens Coloring','Mens Spa']} />} />
+    <Route path='/womens' element={<Mens text={['Mens Beard Cut','Mens Hair Cut','Mens Coloring','Mens Spa']} />} />
     <Route path='/mens/beard' element={<MensBeardCut/>} />
     <Route path='/mens/color' element={<MensColor/>} />
     <Route path='/mens/hair' element={<MensHairCut/>} />
