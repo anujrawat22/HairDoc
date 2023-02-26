@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { IdContext } from './Contexts/Id_context'
+import { IdContext } from '../men/Contexts/Id_context'
 function SpaandTreatment() {
   const [spaData, setspaData] = useState([]);
   const [spaId,setspaId]= useState({
