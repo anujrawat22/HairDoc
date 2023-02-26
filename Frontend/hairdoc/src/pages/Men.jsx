@@ -1,11 +1,11 @@
 
 // import './App.css';
 import { useState } from 'react';
-import Haircut from './components/Haircut';
-import Beard from './components/Beard';
-import Haircolor from './components/Haircolor';
-import SpaandTreatment from './components/SpaandTreatment';
-import Cart from './components/Cart';
+import Haircut from '../Components/men/Haircut';
+import Beard from '../Components/men/Beard';
+import Haircolor from '../Components/men/Haircolor';
+import SpaandTreatment from '../Components/men/SpaandTreatment';
+import Cart from '../Components/men/Cart';
 import {ShoppingCartOutlined} from '@ant-design/icons'
 import { Button, Drawer } from 'antd';
 
