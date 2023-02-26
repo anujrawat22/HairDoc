@@ -8,6 +8,7 @@ import Men from "../pages/Men"
 
 const AllRoutes = () => {
   return (
+    //all routes
     <Routes>
     <Route path="/" element={<Home/>}/>
     <Route path="/signup"   element={<SignUp/>}/>
