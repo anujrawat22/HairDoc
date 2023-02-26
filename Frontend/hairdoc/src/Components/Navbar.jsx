@@ -64,7 +64,7 @@ export default function Navbar() {
               <Flex  gap={6}>
                 <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/")}>Home</Text>
                 <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/women")}>Women</Text>
-                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("#")}>men</Text>
+                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/men")}>men</Text>
               </Flex>
               
             </HStack>

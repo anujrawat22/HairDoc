@@ -1,5 +1,5 @@
 
-import './App.css';
+// import './App.css';
 import { useState } from 'react';
 import Haircut from './components/Haircut';
 import Beard from './components/Beard';
