@@ -23,7 +23,7 @@ function Beard() {
   const  { id, setId } = useContext(IdContext)
   useEffect(() => {
     axios
-      .get("http://localhost:8080/men/beard/")
+      .get("https://sleepy-foal-waders.cyclic.app/men/beard/")
       //   .then(res=> console.log(res.data))
       .then((res) => setbeardData(res.data));
       // console.log(id)

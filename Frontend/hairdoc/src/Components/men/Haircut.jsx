@@ -19,7 +19,7 @@ function Haircut() {
   useEffect(() => {
   
     axios
-      .get("http://localhost:8080/men/haircut/")
+      .get("https://sleepy-foal-waders.cyclic.app/men/haircut/")
       //   .then(res=> console.log(res.data))
       .then((res) => setHairData(res.data));
   }, [id]);

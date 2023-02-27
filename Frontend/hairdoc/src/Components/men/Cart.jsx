@@ -17,7 +17,7 @@ function Cart() {
     useEffect(()=>{
         
       if(id.hairId!== ''){
-          axios.get(`http://localhost:8080/men/haircut/search/${id.hairId}`)
+          axios.get(`https://sleepy-foal-waders.cyclic.app/men/haircut/search/${id.hairId}`)
           // .then(res => console.log(res.data[0],"res"))
           .then(res=>{
             
@@ -27,7 +27,7 @@ function Cart() {
     
 
     if(id.beardId!== ''){
-      axios.get(`http://localhost:8080/men/beard/search/${id.beardId}`)
+      axios.get(`https://sleepy-foal-waders.cyclic.app/men/beard/search/${id.beardId}`)
     //   .then(res => console.log(res.data[0],"res"))
       .then(res=>{
         setBeard({...res.data[0]})

@@ -24,7 +24,7 @@ function SpaandTreatment() {
   const  { id, setId } = useContext(IdContext)
   useEffect(() => {
     axios
-      .get("http://localhost:8080/men/spa/")
+      .get("https://sleepy-foal-waders.cyclic.app/men/spa/")
       //   .then(res=> console.log(res.data))
       .then((res) => setspaData(res.data));
       
