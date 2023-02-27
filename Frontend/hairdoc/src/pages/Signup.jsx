@@ -61,7 +61,7 @@ export default function SignupCard() {
       return;
     }
     try {
-      let response = await fetch("http://localhost:8080/signup", {
+      let response = await fetch("https://sleepy-foal-waders.cyclic.app/signup", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -84,7 +84,7 @@ export default function SignupCard() {
     );
 
     try {
-      let response = await fetch("http://localhost:8080/verify", {
+      let response = await fetch("https://sleepy-foal-waders.cyclic.app/verify", {
         method: "POST",
         body: JSON.stringify({ otp, email: signupEmail.current.value }),
         headers: {

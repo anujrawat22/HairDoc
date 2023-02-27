@@ -32,21 +32,21 @@ const settings = {
 
   const cards = [
     {
-      title: 'Image 1',
+      title: '',
       text:
         "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
       image:
         'https://t4.ftcdn.net/jpg/01/81/61/29/360_F_181612908_uiOH8a4qWiNGuGS2Pg5dgwUIKJZ0C02w.jpg'
     },
     {
-      title: 'Image 2',
+      title: '',
       text:
       "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
       image:
         'https://images.unsplash.com/photo-1438183972690-6d4658e3290e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2274&q=80',
     },
     {
-      title: 'Image 3',
+      title: '',
       text:
       "Look Special on your Wedding with Top Makeup Artists in India. Book the best bridal makeup package from top & verified bridal makeup artists in All Over India.",
       image:

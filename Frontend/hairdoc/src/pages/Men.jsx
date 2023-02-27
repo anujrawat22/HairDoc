@@ -70,7 +70,7 @@ function Men() {
   useEffect(() => {
     if (id.hairId !== "") {
       axios
-        .get(`http://localhost:8080/men/haircut/search/${id.hairId}`)
+        .get(`https://sleepy-foal-waders.cyclic.app/men/haircut/search/${id.hairId}`)
         .then((res) => {
           sethair({...res.data[0]})
           setCartArr([...cartArr,res.data[0]])
@@ -82,7 +82,7 @@ function Men() {
 
     if(id.beardId!== ''){
       axios
-      .get(`http://localhost:8080/men/beard/search/${id.beardId}`)
+      .get(`https://sleepy-foal-waders.cyclic.app/men/beard/search/${id.beardId}`)
       .then(res=>{
         setBeard({...res.data[0]})
         setCartArr([...cartArr,res.data[0]])
@@ -92,7 +92,7 @@ function Men() {
   }
 
   if(id.colorId!== ''){
-    axios.get(`http://localhost:8080/men/haircolor/search/${id.colorId}`)
+    axios.get(`https://sleepy-foal-waders.cyclic.app/men/haircolor/search/${id.colorId}`)
 
     .then(res=>{
       setColor({...res.data[0]})
@@ -104,7 +104,7 @@ function Men() {
 
 
 if(id.spaId!== ''){
-  axios.get(`http://localhost:8080/men/spa/search/${id.spaId}`)
+  axios.get(`https://sleepy-foal-waders.cyclic.app/men/spa/search/${id.spaId}`)
   .then(res=>{
     setSpa({...res.data[0]})
     setCartArr([...cartArr,res.data[0]])
