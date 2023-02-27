@@ -35,7 +35,7 @@ const MensColor = () => {
     //   onSubmit(formData);
    
     try {
-        let response = await fetch("http://localhost:8080/men/haircolor/create", {
+        let response = await fetch("https://sleepy-foal-waders.cyclic.app/men/haircolor/create", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {

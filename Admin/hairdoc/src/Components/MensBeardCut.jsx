@@ -36,7 +36,7 @@ const MensBeardCut = () => {
     //   onSubmit(formData);
    
     try {
-        let response = await fetch("http://localhost:8080/men/beard/create", {
+        let response = await fetch("https://sleepy-foal-waders.cyclic.app/men/beard/create", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {
