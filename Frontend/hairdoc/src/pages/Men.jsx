@@ -178,8 +178,19 @@ const { isOpen: isModalOpen , onOpen: onModalOpen, onClose: onModalClose } = use
   return (
     <>
       <Navbar />
-      <DatePicker onChange={onChange} value={value} />
-      <h1>Hair Cut</h1>
+      <div style={{width : '50vh',marginLeft : '70vw',display:'flex',justifyContent : 'space-around'}}>
+        <h1>Select Slot :</h1>
+      <DatePicker onChange={onChange} value={value} style={{}}/>
+      <select name="time" id="time">
+        <option value="9:00 AM">9:00 AM</option>
+        <option value="11:00 AM">11:00 AM</option>
+        <option value="1:00 PM">1:00 PM</option>
+        <option value="3:00 PM">3:00 PM</option>
+        <option value="5:00 PM">5:00 PM</option>
+      </select>
+      </div>
+      
+      <h1 style={{fontSize : '2rem'}}>Hair Cut</h1>
       <Haircut />
 
       <h1>Beard Cut</h1>
@@ -222,7 +233,7 @@ const { isOpen: isModalOpen , onOpen: onModalOpen, onClose: onModalClose } = use
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Cart</DrawerHeader>
 
           <DrawerBody style={{display : 'flex' , flexDirection : 'column',gap : '20px'}}>
             {Object.keys(hair).length > 0 ? (
