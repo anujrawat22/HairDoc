@@ -1,111 +1,34 @@
 const express = require("express")
+const { get_haircut_data, get_haircutData_byId, create_haircut, update_haircut, delete_haricut } = require("../../controller/men_haircut")
 
 const menHairCutrouter = express.Router()
- const { MenHaircutModel } = require("../../models/mens.model/menhaircut.model")
+
 
 
 
 
 
 //  all data of mens spa and hair treatment
-menHairCutrouter.get("/",async (req,res)=>{
-    try{
-        const data = await MenHaircutModel.find()
-        res.status(200).send(data)
-    }
-    catch(err){
-        res.status(401).send({"Error" : err})
-    }
-  
-
-})
+menHairCutrouter.get("/",get_haircut_data)
 
 
 
 // data for paticular category and name
-menHairCutrouter.get("/search/:ID",async (req,res)=>{
-    const { name } = req.query
-    const { category } = req.query
-    const { ID } = req.params
-    try{
-        if(name){
-            const data = await MenHaircutModel.find({'name' : name})
-            res.status(200).send(data)  
-        }else if(category){
-            const data = await MenHaircutModel.find({'hairLength' : category})
-            res.status(200).send(data)
-        }else if(name && category){
-            const data = await MenHaircutModel.find({'name' : name,'hairLength': category})
-            res.status(200).send(data)
-        }else if(ID){
-            const data = await MenHaircutModel.find({_id : ID})
-            res.status(200).send(data)
-        }
-        
-    }
-    catch(err){
-        res.status(401).send({"Error" : err})
-    }
-  
-
-})
+menHairCutrouter.get("/search/:ID",get_haircutData_byId)
 
 
 
 
 //  route to create new mens spa and treatment data
-menHairCutrouter.post("/create", async(req,res)=>{
-  const payload = req.body
-
-  try{
-
-    const data = new MenHaircutModel(payload)
-    await data.save()
-    res.status(200).send("Data added sucessfully")
-  }catch(err){
-    res.status(401).send({"Error" : err})
-  }
-})
+menHairCutrouter.post("/create",create_haircut )
 
 
 
 // update any mens spa and tretment data
-menHairCutrouter.put("/update/:ID" ,async(req,res)=>{
-    const ID = req.params.ID
-    const payload = req.body
-
-    try{
-        const app = await MenHaircutModel.findOne({_id:ID})
-        if(app){
-            await MenHaircutModel.findByIdAndUpdate({_id : ID},payload)
-            res.status(200).send("Updation Sucessfull")
-        }else{
-            res.status(404).send("Not found")
-        }
-    }
-    catch(err){
-        res.status(400).send({"Error" : err})
-    }
-})
+menHairCutrouter.put("/update/:ID" ,update_haircut)
 
 
 // delete
-menHairCutrouter.delete("/delete/:ID" ,async(req,res)=>{
-    const ID = req.params.ID
-    
-
-    try{
-        const app = await MenHaircutModel.findOne({_id:ID})
-        if(app){
-            await MenHaircutModel.findByIdAndDelete({_id : ID})
-            res.status(200).send("Deletion Sucessfull")
-        }else{
-            res.status(404).send("Not found")
-        }
-    }
-    catch(err){
-        res.status(400).send({"Error" : err})
-    }
-})
+menHairCutrouter.delete("/delete/:ID" ,delete_haricut)
 
 module.exports = { menHairCutrouter }
