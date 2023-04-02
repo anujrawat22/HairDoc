@@ -3,14 +3,14 @@ import axios from "axios";
 import { IdContext } from '../men/Contexts/Id_context'
 import {
   Card,
-  CardHeader,
+  
   CardBody,
   CardFooter,
   Stack,
   Heading,
   Text,
   Divider,
-  ButtonGroup,
+  
   Button,
   Image,
 } from "@chakra-ui/react";
