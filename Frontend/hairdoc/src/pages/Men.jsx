@@ -1,5 +1,5 @@
 // import './App.css';
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState,  useEffect, useContext } from "react";
 import {
   Card,
   CardBody,
@@ -16,7 +16,7 @@ import SpaandTreatment from "../Components/men/SpaandTreatment";
 
 import axios from "axios";
 import { IdContext } from "../Components/men/Contexts/Id_context";
-
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Navbar from "../Components/Navbar";
 import {
   Drawer,
@@ -113,32 +113,7 @@ if(id.spaId!== ''){
   
 }
 
-// if(Object.keys(hair).length > 0){
-//   setSum((prev)=>
-//     prev + hair.price
-//   )
-//   console.log(sum,'sum')
-//   }
 
-//   if(Object.keys(beard).length > 0){
-//     setSum((prev)=>
-//     prev + beard.price
-//   )
-//     }
-
-//     if(Object.keys(color).length > 0){
-//       setSum((prev)=>
-//     prev + color.price
-//   )
-//       }
-
-//       if(Object.keys(spa).length > 0){
-//         setSum((prev)=>
-//     prev + spa.price
-//   )
-//         }
-
-//         console.log(sum,'sum')
   }, [id]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -146,35 +121,7 @@ if(id.spaId!== ''){
 const { isOpen: isModalOpen , onOpen: onModalOpen, onClose: onModalClose } = useDisclosure()
   const btnRef = React.useRef();
 
-  // const calculateTotal= ()=>{
-    
-  //   if(Object.keys(hair).length > 0){
-  //   setSum((prev)=>
-  //     prev + hair.price
-  //   )
-  //   console.log(sum,'sum')
-  //   }
 
-  //   if(Object.keys(beard).length > 0){
-  //     setSum((prev)=>
-  //     prev + beard.price
-  //   )
-  //     }
-
-  //     if(Object.keys(color).length > 0){
-  //       setSum((prev)=>
-  //     prev + color.price
-  //   )
-  //       }
-
-  //       if(Object.keys(spa).length > 0){
-  //         setSum((prev)=>
-  //     prev + spa.price
-  //   )
-  //         }
-
-          
-  // }
   return (
     <>
       <Navbar />
@@ -190,18 +137,35 @@ const { isOpen: isModalOpen , onOpen: onModalOpen, onClose: onModalClose } = use
       </select>
       </div>
       
-      <h1 style={{fontSize : '2rem'}}>Hair Cut</h1>
-      <Haircut />
 
-      <h1>Beard Cut</h1>
-      <Beard />
+      <Tabs>
+  <TabList>
+    <Tab>Hair Cut</Tab>
+    <Tab>Beard Cut</Tab>
+    <Tab>Hair Color</Tab>
+    <Tab>Spa and Treatment</Tab>
+  </TabList>
 
-      <h1>Hair Color</h1>
-      <Haircolor />
+  <TabPanels>
+    <TabPanel>
+    <Haircut />
+    </TabPanel>
+    <TabPanel>
+    <Beard />
+    </TabPanel>
+    <TabPanel>
+    <Haircolor />
+    </TabPanel>
+    <TabPanel>
+    <SpaandTreatment />
+    </TabPanel>
+  </TabPanels>
+</Tabs>
 
-      <h1>Spa and Treatment</h1>
 
-      <SpaandTreatment />
+
+
+      
 
       <Button
         ref={btnRef}
