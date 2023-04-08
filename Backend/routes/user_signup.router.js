@@ -53,8 +53,8 @@ UserRouter.post('/signup', async (req, res) => {
                 const mailConfigurations = {
                     from: process.env.email,
                     to: email,
-                    subject: `Your verification code is ${otp}`,
-                    text: 'Sending Email For verification'
+                    subject:'Sending Email For verification' ,
+                    text: `Your verification code is ${otp}`
                 };
 
                 transporter.sendMail(mailConfigurations, async function (error, info) {

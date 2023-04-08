@@ -29,7 +29,9 @@ const { menHairCutrouter } = require('./routes/mens_Route/men_haircut.model.js')
 const { menBeardrouter } = require('./routes/mens_Route/menbeard.route.js');
 const { mensparouter } = require('./routes/mens_Route/menspatreatment.route.js');
 const { checkRouter } = require("./routes/checkAuth.route");
-const {womenRouter} =require('./routes/hair_product.route')
+const {womenRouter} =require('./routes/hair_product.route');
+const { StatusRouter } = require("./routes/mens_Route/mensStatus.route");
+const { CartRouter } = require("./routes/cart.route");
 
 
 //routes
@@ -38,11 +40,13 @@ app.post('/login',UserRouter)
 app.use('/logout',UserRouter)
 app.post('/verify',UserRouter)
 app.use("/check", authenticate, checkRouter); 
-app.use("men/haircolor",menHairColorrouter)
-app.use("men/haircut",menHairCutrouter )
-app.use("men/beard", menBeardrouter)
-app.use("men/spa",mensparouter)
+app.use("/men/haircolor",menHairColorrouter)
+app.use("/men/haircut",menHairCutrouter )
+app.use("/men/beard", menBeardrouter)
+app.use("/men/spa",mensparouter)
+app.use("/men/status",StatusRouter)
 app.use("/women",womenRouter)
+app.use("/cart",authenticate,CartRouter)
 
 
 app.get('/auth/google',

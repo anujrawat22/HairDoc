@@ -1,4 +1,5 @@
-const { StatusModel } = require("../../models/mens.model/mens_status.model");
+const { StatusModel } = require("../models/mens.model/mens_status.model");
+
 
 exports.get_status = async (req, res) => {
   try {
