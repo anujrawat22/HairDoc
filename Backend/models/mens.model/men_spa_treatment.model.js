@@ -6,7 +6,7 @@ const menSpaandTreatmentSchema = mongoose.Schema({
   time: { type : Date, default: Date.now },
   rating: { type: Number },
   customerCount: { type: Number },
-  nonmemberprice : { type : Number}
+  price : { type : Number}
 });
 
 

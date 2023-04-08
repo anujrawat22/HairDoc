@@ -1,6 +1,5 @@
-const {
-  MenSpaandTreatment,
-} = require("../../models/mens.model/men_spa_treatment.model");
+const { MenSpaandTreatment } = require("../models/mens.model/men_spa_treatment.model");
+
 
 exports.get_spaData = async (req, res) => {
   try {

@@ -1,8 +1,9 @@
-const { MenbeardModel } = require("../../models/mens.model/menbeardcut.model");
+const { MenbeardModel } = require("../models/mens.model/menbeardcut.model");
+
 
 exports.get_breadData = async (req, res) => {
   try {
-    const data = await MenbeardModel.find();
+    const data = await MenbeardModel.find()
     res.status(200).send(data);
   } catch (err) {
     res.status(401).send({ Error: err });

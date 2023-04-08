@@ -19,6 +19,7 @@ const authenticate = (req,res,next)=>{
                 res.status(401).send({"msg":"please login","err":err.message})
             }
             else{
+                req.body.UserId = decoded.userid
                 next()
             }
         })

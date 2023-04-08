@@ -1,8 +1,9 @@
-const { MenHaircutModel } = require("../../models/mens.model/menhaircut.model");
+const { MenHaircutModel } = require("../models/mens.model/menhaircut.model");
+
 
 exports.get_haircut_data = async (req, res) => {
   try {
-    const data = await MenHaircutModel.find();
+    const data = await MenHaircutModel.find()
     res.status(200).send(data);
   } catch (err) {
     res.status(401).send({ Error: err });

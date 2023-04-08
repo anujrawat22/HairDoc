@@ -1,4 +1,5 @@
-const { MenHairColorModel } = require("../../models/mens.model/menhaircoloring.model")
+const { MenHairColorModel } = require("../models/mens.model/menhaircoloring.model")
+
 
 exports.getcolorData = async (req,res)=>{
     try{
