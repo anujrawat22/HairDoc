@@ -2,12 +2,13 @@ const { CartModel } = require("../models/cart.model/cart.model")
 
 exports.getCartItems = async(req,res)=>{
     try{
-        const {id} = req.params
-     const CartData = CartModel.find({customerId : id})
+        const { UserId } = req.body
+        
+     const CartData =await CartModel.find({customerId : UserId})
      if(CartData.length === 0){
-        return res.status(404).send({message : `Cart Empty for user with id - ${id}`})
+        return res.status(404).send({message : `Cart Empty for user with id - ${UserId}`})
      }
-      res.status(201).send({message : `Cart Data of user with id - ${id}`, CartData})
+      res.status(201).send({message : `Cart Data of user with id - ${UserId}`, CartData})
     }catch(err){
         console.log(err)
         res.status(500).send({Error : "Server Error"})
@@ -36,10 +37,14 @@ exports.updateItem = async(req,res)=>{
             return res.status(404).send({message : `Item with id - ${id} not found`})
         }
 
-        if(Item.customerId !== UserId.toHexString()){
+        if(Item.customerId.toHexString() !== UserId){
             return res.status(401).send({message : "Unauthorized"})
         }else{
-            await CartModel.updateOne({_id : id},{$set : {name,price,poster,serviceType , customerId : UserId}})
+            Item.name = name;
+            Item.price = price;
+            Item.poster = poster;
+            Item.serviceType = serviceType
+            await Item.save()
             res.status(201).send({message : `Cart Item with id - ${id} updated sucessfully`})
         }
 
@@ -51,14 +56,14 @@ exports.updateItem = async(req,res)=>{
 
 exports.deleteItem = async(req,res)=>{
     try{
-      const {itemId} = req.params;
+      const {id} = req.params;
       const {UserId} = req.body
-      const Item = await CartModel.findById(itemId)
-      if(Item.customerId !==UserId.toHexString()){
+      const Item = await CartModel.findById(id)
+      if(Item.customerId.toHexString() !==UserId){
         return res.status(401).send({message : "Unauthorized"})
       }else{
-        await CartModel.findByIdAndDelete(itemId)
-        res.status(201).send({message : `Cart item with id - ${itemId} deleted sucessfully`})
+        await CartModel.findByIdAndDelete(id)
+        res.status(201).send({message : `Cart item with id - ${id} deleted sucessfully`})
       }
     }catch(err){
         console.log(err)
