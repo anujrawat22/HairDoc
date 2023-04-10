@@ -3,13 +3,13 @@ const { getCartItems, createCart, deleteItem, updateItem } = require('../control
 
 const CartRouter = express.Router()
 
-CartRouter.get("/:id",getCartItems)
+CartRouter.get("/",getCartItems)
 
-CartRouter.post("/:id",createCart)
+CartRouter.post("/",createCart)
 
 CartRouter.put("/:id",updateItem)
 
-CartRouter.delete("/deleteitem/:itemId",deleteItem)
+CartRouter.delete("/:id",deleteItem)
 
 
 
