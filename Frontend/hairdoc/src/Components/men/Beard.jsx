@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { IdContext } from '../men/Contexts/Id_context'
+
 import {
   Card,
   
@@ -13,26 +13,24 @@ import {
   
   Button,
   Image,
+  Spinner,
 } from "@chakra-ui/react";
 
 function Beard() {
   const [beardData, setbeardData] = useState([]);
-  const [beardId,setbeardId]= useState({
-    id:''
-  })
-  const  { id, setId } = useContext(IdContext)
+  
+  const handleData = (item)=>{
+    console.log(item)
+    }
   useEffect(() => {
     axios
       .get("https://sleepy-foal-waders.cyclic.app/men/beard/")
       //   .then(res=> console.log(res.data))
       .then((res) => setbeardData(res.data));
       // console.log(id)
-  }, [id]);
+  }, []);
 
-  const handleClick = (e)=>{
-    setId( { ...id , beardId: e.target.id})
-    
-  }
+  
   return (
     <div className="main"  style={{display:'flex',gap:'2rem',flexWrap:'wrap',flexBasis:"200px",margin:'2rem',justifyContent:'center' }} >
       {beardData.length > 0
@@ -57,12 +55,14 @@ function Beard() {
                     style={{ display: "flex", justifyContent: "center" }}
                   >
                     <Button
-                      onClick={(e) => handleClick(e)}
+                      
                       id={item._id}
                       variant="solid"
                       colorScheme="blue"
                       style={{ width: "20vw" }}
-                    >
+                      onClick={()=>{
+                        handleData(item)
+                      }}>
                       Add to Cart
                     </Button>
                   </CardFooter>
@@ -70,7 +70,13 @@ function Beard() {
               </>
             );
           })
-        : null}
+        : <Spinner
+        thickness='4px'
+        speed='0.65s'
+        emptyColor='gray.200'
+        color='blue.500'
+        size='xl'
+      />}
     </div>
   );
 }

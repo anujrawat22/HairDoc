@@ -6,18 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import Dena from "./contex/auth";
-import { IdProvider } from "./Components/men/Contexts/Id_context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-  <IdProvider>
-  <Dena>
+    <Dena>
       <ChakraProvider>
         <App />
       </ChakraProvider>
     </Dena>
-  </IdProvider>
   </BrowserRouter>
 );
 
