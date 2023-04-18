@@ -40,7 +40,7 @@ const Dena = (props) => {
   const handleLogin = async (email, password) => {
     let obj = { email, password };
 
-    if (obj.email == "" || obj.password == "") {
+    if (obj.email === "" || obj.password === "") {
       alert("Please fill all the details");
       return;
     }
