@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import logo from "../images/Level.png"
+import logo from "../images/Level.png";
 import {
   Box,
   Flex,
@@ -18,7 +18,7 @@ import {
   useColorModeValue,
   Stack,
   Text,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
@@ -48,12 +48,12 @@ export default function Navbar() {
           <HStack spacing={6} alignItems={"center"}>
             <Box>
               <Image
-              w="10%"
-              src={logo} 
-              alt={"Login Image"}
-              objectFit={"logo"}
-              rounded="lg"
-              size={"sm"}
+                w="10%"
+                src={logo}
+                alt={"Login Image"}
+                objectFit={"logo"}
+                rounded="lg"
+                size={"sm"}
               />
             </Box>
             <HStack
@@ -61,12 +61,29 @@ export default function Navbar() {
               spacing={3}
               display={{ base: "none", md: "none", lg: "block" }}
             >
-              <Flex  gap={6}>
-                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/")}>Home</Text>
-                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/women")}>Women</Text>
-                <Text cursor={"pointer"}  color={"black"} onClick={() => navigate("/men")}>men</Text>
+              <Flex gap={6}>
+                <Text
+                  cursor={"pointer"}
+                  color={"black"}
+                  onClick={() => navigate("/")}
+                >
+                  Home
+                </Text>
+                <Text
+                  cursor={"pointer"}
+                  color={"black"}
+                  onClick={() => navigate("/women")}
+                >
+                  Women
+                </Text>
+                <Text
+                  cursor={"pointer"}
+                  color={"black"}
+                  onClick={() => navigate("/men")}
+                >
+                  Men
+                </Text>
               </Flex>
-              
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
@@ -88,21 +105,14 @@ export default function Navbar() {
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>Link 1</MenuItem>
-                    <MenuItem>Link 2</MenuItem>
+                    <MenuItem>Profile</MenuItem>
+                    <MenuItem>My Bookings</MenuItem>
                     <MenuDivider />
-                    <MenuItem>Link 3</MenuItem>
+                    <MenuItem onClick={() => authState.handleLogout()}>
+                      Logout
+                    </MenuItem>
                   </MenuList>
                 </Menu>
-                <Button
-                  variant={"solid"}
-                  color={"black"}
-                  size={"sm"}
-                  mr={4}
-                  onClick={() => authState.handleLogout()}
-                >
-                  Logout
-                </Button>
               </HStack>
             ) : (
               <>

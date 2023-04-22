@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export const AuthContext = createContext();
 
 const Dena = (props) => {
@@ -18,8 +19,8 @@ const Dena = (props) => {
     try {
       let res = await fetch(`${process.env.REACT_APP_backendBaseURL}/check`, {
         headers: {
-          authorization: `Bearer ${t}`
-        }
+          authorization: `Bearer ${t}`,
+        },
       });
       let { msg } = await res.json();
       console.log(msg);
@@ -38,31 +39,36 @@ const Dena = (props) => {
   };
 
   const handleLogin = async (email, password) => {
+    const MySwal = withReactContent(Swal);
     let obj = { email, password };
 
     if (obj.email === "" || obj.password === "") {
-      alert("Please fill all the details");
+      MySwal.fire("Please fill all details");
       return;
     }
     try {
-      let response = await fetch("https://sleepy-foal-waders.cyclic.app/login", {
+      let response = await fetch("http://localhost:8080/login", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
-          "Content-type": "application/json"
-        }
+          "Content-type": "application/json",
+        },
       });
       let data = await response.json();
-      let token = data.token;
-      localStorage.setItem("token", token);
+      console.log(data);
 
-      if (token) {
+      if (data.token) {
+        let token = data.token;
+        localStorage.setItem("token", token);
         setIsauth(true);
         setToken(token);
         navigate("/");
+      } else {
+        MySwal.fire(data.msg);;
       }
     } catch (error) {
-      console.log(error);
+      alert(error);
+      console.log("error", error);
     }
   };
 

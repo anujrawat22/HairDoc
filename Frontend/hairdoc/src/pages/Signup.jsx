@@ -1,7 +1,8 @@
 import LevelImg from "../images/Level.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import {
   Flex,
   Box,
@@ -25,10 +26,11 @@ import {
   ModalContent,
   Center,
   PinInput,
-  PinInputField
+  PinInputField,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import Navbar from "../Components/Navbar";
 
 export default function SignupCard() {
   const firstPinRef = useRef(null);
@@ -40,36 +42,45 @@ export default function SignupCard() {
   const signupEmail = useRef(null);
   const signupPassword = useRef(null);
   const signupMobile = useRef(null);
+  const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleSignUp = async () => {
+    const MySwal = withReactContent(Swal);
     let obj = {
       name: signupFirstName.current.value + " " + signupLastName.current.value,
       email: signupEmail.current.value,
       password: signupPassword.current.value,
-      mobile: signupMobile.current.value
+      mobile: signupMobile.current.value,
     };
-    console.log(obj)
+    console.log(obj);
     if (
-      obj.name == "" ||
-      obj.email == "" ||
-      obj.password == "" ||
-      obj.mobile == ""
+      obj.name === "" ||
+      obj.email === "" ||
+      obj.password === "" ||
+      obj.mobile === ""
     ) {
-      alert("Please fill all the details");
+      MySwal.fire({title : "Please fill all details",
+        color : "red"});
       return;
     }
     try {
-      let response = await fetch("https://sleepy-foal-waders.cyclic.app/signup", {
+      setEmail(signupEmail.current.value);
+      let response = await fetch("http://localhost:8080/signup", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
-          "Content-type": "application/json"
-        }
+          "Content-type": "application/json",
+        },
       });
-      console.log(await response.json());
-      onOpen();
+      let data = await response.json();
+      if (data.msg === "Otp Sent Successfully") {
+        onOpen();
+      } else {
+        MySwal.fire({title : data.msg,
+        color : "red"})
+      }
     } catch (error) {
       console.log(error);
     }
@@ -84,14 +95,17 @@ export default function SignupCard() {
     );
 
     try {
-      let response = await fetch("https://sleepy-foal-waders.cyclic.app/verify", {
+      let response = await fetch("http://localhost:8080/verify", {
         method: "POST",
         body: JSON.stringify({ otp, email: signupEmail.current.value }),
         headers: {
-          "Content-type": "application/json"
-        }
+          "Content-type": "application/json",
+        },
       });
-      console.log(await response.json());
+      let data = await response.json();
+      if (data.msg === "Account Created Successfully") {
+        navigate("/login");
+      }
       onClose();
     } catch (error) {
       console.log(error);
@@ -99,6 +113,7 @@ export default function SignupCard() {
   };
   return (
     <>
+      <Navbar />
       <Flex
         minH={"100vh"}
         align={"center"}
@@ -186,7 +201,7 @@ export default function SignupCard() {
                     color={"black"}
                     _hover={{
                       bg: "black",
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     Sign up
@@ -202,7 +217,7 @@ export default function SignupCard() {
                       p="5px"
                       _hover={{
                         bg: "black",
-                        color: "white"
+                        color: "white",
                       }}
                     >
                       Login
@@ -254,7 +269,7 @@ export default function SignupCard() {
                 fontWeight="bold"
                 color={useColorModeValue("gray.800", "gray.400")}
               >
-                username@mail.com
+                {email}
               </Center>
               <FormControl>
                 <Center>
@@ -274,7 +289,7 @@ export default function SignupCard() {
                   bg={"#ebd3e1"}
                   color={"white"}
                   _hover={{
-                    bg: "black"
+                    bg: "black",
                   }}
                 >
                   Verify
