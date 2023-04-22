@@ -19,8 +19,16 @@ import {
 function Beard() {
   const [beardData, setbeardData] = useState([]);
   
-  const handleData = (item)=>{
-    console.log(item)
+  const handleData = async(item)=>{
+    let response = await fetch("http://localhost:8080/cart",{
+      method : "POST",
+      body : JSON.stringify(item),
+      headers : {
+        'Content-type' : 'Application/json'
+      }
+    })
+    let data = await response.json()
+    console.log(data)
     }
   useEffect(() => {
     axios

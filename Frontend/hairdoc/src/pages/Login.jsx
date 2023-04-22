@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../contex/auth";
+import Navbar from "../Components/Navbar";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +29,9 @@ export default function Login() {
   const loginPassword = useRef(null);
 
   return (
+    <>
+   
+    <Navbar/>
     <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
         <Stack spacing={4} w={"full"} maxW={"md"}>
@@ -102,5 +106,6 @@ export default function Login() {
         />
       </Flex>
     </Stack>
+    </>
   );
 }

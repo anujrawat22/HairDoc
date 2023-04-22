@@ -24,62 +24,69 @@ UserRouter.use(cookieParser());
 
 //signup
 UserRouter.post("/signup", async (req, res) => {
-  const { email, password, mobile, name, avatar, gender, isAdmin, isActive } =
-    req.body;
-  bcrypt.hash(password, 6, async function (err, hash) {
-    if (err) {
-      res.status(500).send({ msg: "Something went wrong" });
-    } else {
-      try {
-        // let user = new UserModel();
-        const user = {
-          email,
-          password: hash,
-          name,
-          mobile,
-          avatar,
-          gender,
-          isActive,
-          isAdmin,
-        };
-        let data = JSON.stringify(user);
-        redis.set("user", data);
-        let otp = Math.ceil(Math.random() * 10000);
-        console.log(otp);
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.email,
-            pass: process.env.password,
-          },
-        });
+  try{
 
-        const mailConfigurations = {
-          from: process.env.email,
-          to: email,
-          subject: "Sending Email For verification",
-          text: `Your verification code is ${otp}`,
-        };
-
-        transporter.sendMail(mailConfigurations, async function (error, info) {
-          if (error) {
-            console.log("ERR: Error from nodemailer");
-            console.log(error);
-            res.status(500).send({ msg: "Something went wrong" });
+    const { email, password, mobile, name, avatar, gender, isAdmin, isActive } =
+      req.body;
+  
+      const user = await UserModel.findOne({email})
+      if(user){
+        return res.status(409).send({msg : "User Already Exists , Try another email"})
+      }else{
+        bcrypt.hash(password, 6, async function (err, hash) {
+          if (err) {
+            return res.status(500).send({ msg: "Something went wrong" });
           } else {
-            console.log("Email Sent Successfully");
-            redis.set("otp", otp);
-            res
-              .status(201)
-              .send({ msg: `Otp Sent Successfully`, email: email, user: user });
-          }
-        });
-      } catch (err) {
+              const user = {
+                email,
+                password: hash,
+                name,
+                mobile,
+                avatar,
+                gender,
+                isActive,
+                isAdmin,
+              };
+              let data = JSON.stringify(user);
+              redis.set("user", data);
+              let otp = Math.ceil(Math.random() * 10000);
+              console.log(otp);
+              const transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                  user: process.env.email,
+                  pass: process.env.password,
+                },
+              });
+      
+              const mailConfigurations = {
+                from: process.env.email,
+                to: email,
+                subject: "Sending Email For verification",
+                text: `Your verification code is ${otp}`,
+              };
+      
+              transporter.sendMail(mailConfigurations, async function (error, info) {
+                if (error) {
+                  console.log("ERR: Error from nodemailer");
+                  console.log(error);
+                  res.status(500).send({ msg: "Something went wrong" });
+                } else {
+                  console.log("Email Sent Successfully");
+                  redis.set("otp", otp);
+                  res
+                    .status(201)
+                    .send({ msg: `Otp Sent Successfully`, email: email, user: user });
+                }
+              });
+            }
+          })
+  } 
+}catch (err) {
         console.log(err);
         res.status(401).send({ msg: "Something went wrong" });
       }
-    }
-  });
+    
 });
 
 //verify
@@ -107,13 +114,11 @@ UserRouter.post("/verify", async (req, res) => {
         redis.set("token", token);
         await redis.getdel("user");
         await redis.getdel("otp");
-        res
-          .status(201)
-          .send({
-            msg: "Account Created Successfully",
-            token: token,
-            name: data.name,
-          });
+        res.status(201).send({
+          msg: "Account Created Successfully",
+          token: token,
+          name: data.name,
+        });
       } else {
         res.status(401).send({ msg: "Wrong opt please try again" });
       }
@@ -128,16 +133,18 @@ UserRouter.post("/verify", async (req, res) => {
 UserRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email });
-  console.log(user);
-  if (user) {
-    try {
+  try {
+    if (!user) {
+      return res.status(404).send({ msg: "User Not Found , Please Login" });
+    } else {
       bcrypt.compare(password, user.password, async function (err, result) {
         if (err) {
           console.log(err);
           res.status(500).send({ msg: "Something went wrong" });
-        } else if (result) {
+        }
+        if (result) {
           const token = jwt.sign(
-            { userid: user._id, email: user.email, isAdmin: user.isAdmin },
+            { userid: user._id, email: user.email, isAdmin: user.isAdmin, name : user.name },
             process.env.password,
             { expiresIn: "5d" }
           );
@@ -149,15 +156,13 @@ UserRouter.post("/login", async (req, res) => {
             .status(201)
             .send({ msg: "Login successfull", token: token, name: user.name });
         } else {
-          res.send({ msg: "incorrect password" });
+          res.status(401).send({ msg: "Incorrect Password" });
         }
       });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send({ msg: "Somethng went wrong" });
     }
-  } else {
-    res.status(401).send({ msg: "Invailid credentials" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ msg: "Somethng went wrong" });
   }
 });
 
