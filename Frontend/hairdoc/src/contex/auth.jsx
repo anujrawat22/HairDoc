@@ -38,6 +38,12 @@ const Dena = (props) => {
     }
   };
 
+  const navigateToPage = async()=>{
+    setTimeout(()=>{
+     navigate("/")
+    },1000)
+ }
+
   const handleLogin = async (email, password) => {
     const MySwal = withReactContent(Swal);
     let obj = { email, password };
@@ -62,15 +68,25 @@ const Dena = (props) => {
         localStorage.setItem("token", token);
         setIsauth(true);
         setToken(token);
-        navigate("/");
+        MySwal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Sucessful",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+          navigateToPage()
+        
       } else {
-        MySwal.fire(data.msg);;
+        MySwal.fire(data.msg);
       }
     } catch (error) {
       alert(error);
       console.log("error", error);
     }
   };
+
+ 
 
   const handleLogout = () => {
     setIsauth(false);
