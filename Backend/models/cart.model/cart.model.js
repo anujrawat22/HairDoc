@@ -1,10 +1,10 @@
 const mongoose = require("mongoose")
 
 const CartSchema = mongoose.Schema({
-name : {type : String},
-price : {type : String},
-poster : {type : String},
-serviceType : {type : String},
+name : {type : String,required : true},
+price : {type : String,required : true},
+poster : {type : String,required : true},
+serviceType : {type : String,required : true},
 customerId : {type  : mongoose.Schema.Types.ObjectId, ref : "user"}
 })
 
