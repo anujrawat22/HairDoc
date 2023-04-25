@@ -2,24 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Stack,
-  Heading,
-  Text,
-  Divider,
-  Button,
-  Image,
-  Spinner,
-} from "@chakra-ui/react";
-
+import { Box, Image, Spinner, Badge,Text } from "@chakra-ui/react";
+import { AiOutlineStar } from "react-icons/ai";
 function Beard() {
   const MySwal = withReactContent(Swal);
   const [beardData, setbeardData] = useState([]);
   const handleData = async (item) => {
-    item.serviceType = 'beard'
+    item.serviceType = "beard";
     let token = localStorage.getItem("token");
     if (token) {
       let response = await fetch("http://localhost:8080/cart", {
@@ -27,25 +16,30 @@ function Beard() {
         body: JSON.stringify(item),
         headers: {
           "Content-type": "Application/json",
-          Authorization : `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
       });
       let data = await response.json();
-      if(data.msg === "Item already exists"){
+      if (data.msg === "Item already exists") {
         MySwal.fire({
-          icon: 'error',
-          title: `Can't book same service on the same day`,      
-        })
-      }else{
+          icon: "error",
+          title: `Can't book same service on the same day`,
+        });
+      } else {
         MySwal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Item added to cart',
+          position: "center",
+          icon: "success",
+          title: "Item added to cart",
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
       }
-    } 
+    } else {
+      MySwal.fire({
+        icon: "error",
+        title: `Please Login to add items to Cart`,
+      });
+    }
   };
   useEffect(() => {
     axios
@@ -71,36 +65,77 @@ function Beard() {
         beardData.map((item) => {
           return (
             <>
-              <Card maxW="sm" key={item._id}>
-                <CardBody>
-                  <Image
-                    src={item.poster}
-                    alt="Green double couch with wooden legs"
-                    borderRadius="lg"
-                    style={{ width: "90%", height: "75%" }}
-                  />
-                  <Stack mt="6" spacing="3">
-                    <Heading size="md">{item.name}</Heading>
-                    <Text fontSize="2xl">Only at : ₹ {item.price}</Text>
-                  </Stack>
-                </CardBody>
-                <Divider />
-                <CardFooter
-                  style={{ display: "flex", justifyContent: "center" }}
+              <Box
+                maxW="sm"
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                w="300px"
+                p="1%"
+                height="400px"
+              >
+                <Image
+                  src={item.poster}
+                  alt="image"
+                  w={"100%"}
+                  h="70%"
+                  objectFit="cover"
+                  borderRadius="10px"
+                />
+
+                <Box
+                  h="30%"
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent={"space-around"}
                 >
-                  <Button
-                    id={item._id}
-                    variant="solid"
-                    colorScheme="blue"
-                    style={{ width: "20vw" }}
-                    onClick={() => {
-                      handleData(item);
-                    }}
-                  >
-                    Add to Cart
-                  </Button>
-                </CardFooter>
-              </Card>
+                  <Box display="flex" justifyContent={"space-around"}>
+                    <Badge
+                      borderRadius="full"
+                      px="2"
+                      colorScheme="teal"
+                      display={"flex"}
+                      alignItems="center"
+                      w="20%"
+                    >
+                      <AiOutlineStar />
+                      {item.rating}
+                    </Badge>
+                    <Box
+                      color="gray.500"
+                      fontWeight="semibold"
+                      letterSpacing="wide"
+                      fontSize="sm"
+                      textTransform="uppercase"
+                      ml="2"
+                    >
+                      Price : ₹{item.price}
+                    </Box>
+                  </Box>
+
+                  <Box>
+                    <Text fontSize="md">{item.name}</Text>
+                  </Box>
+
+                  <Box height="40px">
+                    <button
+                      style={{
+                        width: "100%",
+                        bottom: "0%",
+                        borderRadius: "4px",
+                        backgroundColor: "rgb(49,130,206)",
+                        color: "white",
+                        height: "100%",
+                      }}
+                      onClick={() => {
+                        handleData(item);
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  </Box>
+                </Box>
+              </Box>
             </>
           );
         })

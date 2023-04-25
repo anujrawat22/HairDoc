@@ -17,17 +17,18 @@ const Dena = (props) => {
 
   const checkAuth = async () => {
     try {
-      let res = await fetch(`${process.env.REACT_APP_backendBaseURL}/check`, {
-        headers: {
-          authorization: `Bearer ${t}`,
-        },
-      });
-      let { msg } = await res.json();
-      console.log(msg);
-      if (msg === "please login") {
+      let token = localStorage.getItem("token")
+      // let res = await fetch(`${process.env.REACT_APP_backendBaseURL}/check`, {
+      //   headers: {
+      //     authorization: `Bearer ${t}`,
+      //   },
+      // });
+      // let { msg } = await res.json();
+      // console.log(msg);
+      if (!token) {
         setIsauth(false);
         setToken("");
-      } else if (msg === "authorized") {
+      } else {
         setIsauth(true);
         setToken(t);
       }
