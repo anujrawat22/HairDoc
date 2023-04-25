@@ -1,5 +1,5 @@
-import { ReactNode, useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../images/Level.png";
 import {
   Box,
@@ -20,9 +20,9 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon} from "@chakra-ui/icons";
 
-import Login_Signup_Modal from "../pages/Signup";
+
 import { AuthContext } from "../contex/auth";
 
 const Links = ["Home", "Women", "Men", "Blogs"];
@@ -87,7 +87,7 @@ export default function Navbar() {
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            {authState.isauth ? (
+            {authState.isauth  ? (
               <HStack>
                 <Menu>
                   <MenuButton
