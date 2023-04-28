@@ -27,7 +27,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
-
+import {AiFillDelete } from "react-icons/ai";
 import DatePicker from "react-date-picker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -38,40 +38,8 @@ function Men() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [cartData, setCartData] = useState([]);
-  const handleDeleteItem = (item) => {
-    let token = localStorage.getItem("token");
-    axios
-      .delete(`http://localhost:8080/cart/${item._id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        if (
-          res.data.message ===
-          `Cart item with id - ${item._id} deleted sucessfully`
-        ) {
-          onClose();
-          setTimeout(() => {
-            MySwal.fire({
-              position: "center",
-              icon: "success",
-              title: "Service deleted sucessfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }, 500);
-        } else {
-          MySwal.fire({
-            position: "center",
-            icon: "error",
-            title: item.data.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
+
+  const x = () => {
     let token = localStorage.getItem("token");
     if (token) {
       axios
@@ -79,11 +47,39 @@ function Men() {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          let data = res.data.CartData;
+          let data = res.data.data;
+          console.log(data) 
           setCartData(data);
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  const handleDeleteItem = (item) => {
+    let token = localStorage.getItem("token");
+    axios
+      .delete(`http://localhost:8080/cart/${item._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        
+        onClose();
+        setTimeout(() => {
+          MySwal.fire({
+            position: "center",
+            icon: "success",
+            title: "Service deleted sucessfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }, 500);
+        x();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    x();
   }, []);
 
   return (
@@ -115,23 +111,26 @@ function Men() {
 
         <TabPanels>
           <TabPanel>
-            <Haircut />
+            <Haircut x={x} />
           </TabPanel>
           <TabPanel>
-            <Beard />
+            <Beard x={x} />
           </TabPanel>
           <TabPanel>
-            <Haircolor />
+            <Haircolor x={x} />
           </TabPanel>
           <TabPanel>
-            <SpaandTreatment />
+            <SpaandTreatment x={x} />
           </TabPanel>
         </TabPanels>
       </Tabs>
 
       <button
         ref={btnRef}
-        onClick={onOpen}
+        onClick={() => {
+          onOpen();
+          x();
+        }}
         style={{
           position: "fixed",
           top: "90%",
@@ -168,7 +167,7 @@ function Men() {
                       width: "100%",
 
                       boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-                      height: "25%",
+                      height: "18%",
                       borderRadius: "5px",
                       display: "flex",
                       justifyContent: "center",
@@ -186,7 +185,16 @@ function Men() {
                         }}
                         src={item.poster}
                       />
-                    ) : null}
+                    ) : <img
+                    alt="service"
+                    style={{
+                      height: "100%",
+                      width: "40%",
+                      objectFit: "cover",
+                    }}
+                    
+                    src={'https://plus.unsplash.com/premium_photo-1661340947697-f7cc852f7517?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGhhaXIlMjB0cmVhdG1lbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'}
+                  />}
 
                     <div
                       style={{
@@ -197,22 +205,22 @@ function Men() {
                         width: "60%",
                       }}
                     >
-                      <p style={{ textAlign: "center", width: "100%" }}>
+                      <p style={{ textAlign: "center", width: "100%" , fontWeight:"500"}}>
                         {item.name}
                       </p>
-                      <p style={{ margin: "auto" }}>₹{item.price}</p>``
+                      <p style={{ margin: "auto" }}>₹{item.price}</p> 
                       <button
                         style={{
-                          width: "70px",
+                          width: "20px",
                           borderRadius: "5px",
-                          color: "white",
-                          backgroundColor: "rgb(49,130,206)",
+                          color: "black",
+                          fontWeight:"bolder"
                         }}
                         onClick={() => {
                           handleDeleteItem(item);
                         }}
                       >
-                        Delete
+                       <AiFillDelete/>
                       </button>
                     </div>
                   </div>

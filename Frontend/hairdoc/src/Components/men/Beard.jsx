@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Box, Image, Spinner, Badge,Text } from "@chakra-ui/react";
 import { AiOutlineStar } from "react-icons/ai";
-function Beard() {
+function Beard({x}) {
   const MySwal = withReactContent(Swal);
   const [beardData, setbeardData] = useState([]);
   const handleData = async (item) => {
@@ -26,6 +26,7 @@ function Beard() {
           title: `Can't book same service on the same day`,
         });
       } else {
+        x()
         MySwal.fire({
           position: "center",
           icon: "success",

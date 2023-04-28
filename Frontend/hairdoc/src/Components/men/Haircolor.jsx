@@ -5,7 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { Box, Image, Spinner, Badge, Text } from "@chakra-ui/react";
 import { AiOutlineStar } from "react-icons/ai";
 
-function Haircolor() {
+function Haircolor({x}) {
   const MySwal = withReactContent(Swal);
   const [haircolorData, setHairColorData] = useState([]);
   const handleData = async (item) => {
@@ -27,6 +27,7 @@ function Haircolor() {
           title: `Can't book same service on the same day`,
         });
       } else {
+        x()
         MySwal.fire({
           position: "center",
           icon: "success",

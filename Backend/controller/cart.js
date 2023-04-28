@@ -7,12 +7,12 @@ exports.getCartItems = async (req, res) => {
     const CartData = await CartModel.find({ customerId: UserId });
     if (CartData.length === 0) {
       return res
-        .status(404)
-        .send({ message: `Cart Empty for user with id - ${UserId}` });
+        .status(200)
+        .send({ message: `Cart Empty for user with id - ${UserId}` ,data : []});
     }
     res
       .status(201)
-      .send({ message: `Cart Data of user with id - ${UserId}`, CartData });
+      .send({ message: `Cart Data of user with id - ${UserId}`, data : CartData });
   } catch (err) {
     console.log(err);
     res.status(500).send({ Error: "Server Error" });
