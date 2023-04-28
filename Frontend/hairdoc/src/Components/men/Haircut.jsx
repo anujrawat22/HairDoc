@@ -5,9 +5,11 @@ import withReactContent from "sweetalert2-react-content";
 import { Image, Box, Badge, Text } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react";
 import { AiOutlineStar } from "react-icons/ai";
-function Haircut() {
+function Haircut({x}) {
   const MySwal = withReactContent(Swal);
   const [hairData, setHairData] = useState([]);
+
+
   const handleData = async (item) => {
     item.serviceType = "haircut";
     let token = localStorage.getItem("token");
@@ -27,6 +29,7 @@ function Haircut() {
           title: `Can't book same service on the same day`,
         });
       } else {
+        x()
         MySwal.fire({
           position: "center",
           icon: "success",

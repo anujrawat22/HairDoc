@@ -61,8 +61,7 @@ export default function SignupCard() {
       obj.password === "" ||
       obj.mobile === ""
     ) {
-      MySwal.fire({title : "Please fill all details",
-        color : "red"});
+      MySwal.fire({ title: "Please fill all details", color: "red" });
       return;
     }
     try {
@@ -78,8 +77,7 @@ export default function SignupCard() {
       if (data.msg === "Otp Sent Successfully") {
         onOpen();
       } else {
-        MySwal.fire({title : data.msg,
-        color : "red"})
+        MySwal.fire({ title: data.msg, color: "red" });
       }
     } catch (error) {
       console.log(error);
@@ -87,6 +85,7 @@ export default function SignupCard() {
   };
 
   const handleOTP = async () => {
+    const MySwal = withReactContent(Swal);
     let otp = Number(
       firstPinRef.current.value +
         secondPinRef.current.value +
@@ -104,7 +103,17 @@ export default function SignupCard() {
       });
       let data = await response.json();
       if (data.msg === "Account Created Successfully") {
-        navigate("/login");
+        MySwal.fire({
+          position: "center",
+          icon: "success",
+          title: "Account Created Sucessfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(()=>{
+
+          navigate("/login");
+        },0)
       }
       onClose();
     } catch (error) {

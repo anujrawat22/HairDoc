@@ -5,7 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { Box, Spinner, Badge, Text } from "@chakra-ui/react";
 import { AiOutlineStar } from "react-icons/ai";
 
-function SpaandTreatment() {
+function SpaandTreatment({x}) {
   const MySwal = withReactContent(Swal);
   const [spaData, setspaData] = useState([]);
   const handleData = async (item) => {
@@ -28,6 +28,7 @@ function SpaandTreatment() {
           title: `Can't book same service on the same day`,
         });
       } else {
+        x()
         MySwal.fire({
           position: "center",
           icon: "success",
