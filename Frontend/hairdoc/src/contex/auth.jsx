@@ -54,7 +54,7 @@ const Dena = (props) => {
       return;
     }
     try {
-      let response = await fetch("http://localhost:8080/login", {
+      let response = await fetch("https://hairdocbackend.onrender.com/login", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {

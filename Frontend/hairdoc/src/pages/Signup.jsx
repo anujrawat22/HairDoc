@@ -94,7 +94,7 @@ export default function SignupCard() {
     );
 
     try {
-      let response = await fetch("http://localhost:8080/verify", {
+      let response = await fetch("https://hairdocbackend.onrender.com/verify", {
         method: "POST",
         body: JSON.stringify({ otp, email: signupEmail.current.value }),
         headers: {
