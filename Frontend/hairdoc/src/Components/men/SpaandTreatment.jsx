@@ -13,7 +13,7 @@ function SpaandTreatment({x}) {
     item.serviceType = "spaandtreatment";
     let token = localStorage.getItem("token");
     if (token) {
-      let response = await fetch("http://localhost:8080/cart", {
+      let response = await fetch("https://hairdocbackend.onrender.com/cart", {
         method: "POST",
         body: JSON.stringify(item),
         headers: {

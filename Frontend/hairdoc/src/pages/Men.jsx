@@ -43,7 +43,7 @@ function Men() {
     let token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:8080/cart", {
+        .get("https://hairdocbackend.onrender.com/cart", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -58,7 +58,7 @@ function Men() {
   const handleDeleteItem = (item) => {
     let token = localStorage.getItem("token");
     axios
-      .delete(`http://localhost:8080/cart/${item._id}`, {
+      .delete(`https://hairdocbackend.onrender.com/cart/${item._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

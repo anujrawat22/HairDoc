@@ -11,7 +11,7 @@ function Beard({x}) {
     item.serviceType = "beard";
     let token = localStorage.getItem("token");
     if (token) {
-      let response = await fetch("http://localhost:8080/cart", {
+      let response = await fetch("https://hairdocbackend.onrender.com/cart", {
         method: "POST",
         body: JSON.stringify(item),
         headers: {
@@ -44,7 +44,7 @@ function Beard({x}) {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:8080/men/beard/")
+      .get("https://hairdocbackend.onrender.com/men/beard/")
       //   .then(res=> console.log(res.data))
       .then((res) => setbeardData(res.data));
     // console.log(id)

@@ -7,7 +7,7 @@ function WomenShow(){
 
     const cutdata = async () => {
         let response = await axios.get(
-          "https://sleepy-foal-waders.cyclic.app/women/HairCut"
+          "https://hairdocbackend.onrender.com/women/HairCut"
         );
         setcutData(response.data);
       };
@@ -21,7 +21,7 @@ function WomenShow(){
 
     const colordata = async () => {
         let response = await axios.get(
-          "https://sleepy-foal-waders.cyclic.app/women/HairColor"
+          "https://hairdocbackend.onrender.com/women/HairColor"
         );
         setcolorData(response.data);
       };
@@ -35,7 +35,7 @@ function WomenShow(){
 
     const spadata = async () => {
         let response = await axios.get(
-          "https://sleepy-foal-waders.cyclic.app/women/HairSpa"
+          "https://hairdocbackend.onrender.com/women/HairSpa"
         );
         setspaData(response.data);
       };
@@ -49,7 +49,7 @@ function WomenShow(){
 
       const treatdata = async () => {
           let response = await axios.get(
-            "https://sleepy-foal-waders.cyclic.app/women/HairTreatment"
+            "https://hairdocbackend.onrender.com/women/HairTreatment"
           );
           settreatData(response.data);
         };
@@ -63,7 +63,7 @@ function WomenShow(){
 
         const bestdata = async () => {
             let response = await axios.get(
-              "https://sleepy-foal-waders.cyclic.app/women/HairBest"
+              "https://hairdocbackend.onrender.com/women/HairBest"
             );
             setbestData(response.data);
           };
