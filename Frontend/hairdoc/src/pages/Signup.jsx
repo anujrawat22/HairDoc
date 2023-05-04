@@ -66,7 +66,7 @@ export default function SignupCard() {
     }
     try {
       setEmail(signupEmail.current.value);
-      let response = await fetch("http://localhost:8080/signup", {
+      let response = await fetch("https://hairdocbackend.onrender.com/signup", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
