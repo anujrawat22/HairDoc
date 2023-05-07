@@ -32,6 +32,7 @@ const { checkRouter } = require("./routes/checkAuth.route");
 const {womenRouter} =require('./routes/hair_product.route');
 const { StatusRouter } = require("./routes/mens_Route/mensStatus.route");
 const { CartRouter } = require("./routes/cart.route");
+const { BookingRouter } = require("./routes/booking.route");
 
 
 //routes
@@ -47,6 +48,7 @@ app.use("/men/spa",mensparouter)
 app.use("/men/status",StatusRouter)
 app.use("/women",womenRouter)
 app.use("/cart",authenticate,CartRouter)
+app.use("/booking",authenticate,BookingRouter)
 
 
 app.get('/auth/google',
