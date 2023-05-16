@@ -11,7 +11,8 @@ const BookingSchema = mongoose.Schema({
     },
   ],
   totalAmount: { type: Number },
-  time : {type : Date,default : Date.now()}
+  time : {type : Date,default : Date.now()},
+  Slot : {type : String}
 });
 
 const BookingModel = mongoose.model("Booking", BookingSchema);
